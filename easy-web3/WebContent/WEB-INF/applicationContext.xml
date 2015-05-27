@@ -46,6 +46,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 				<value> pe.com.bbva.seguridad.domain.Modulo</value>
 				<value> pe.com.bbva.mantenimiento.domain.Tabla</value>
 				<value> pe.com.bbva.mantenimiento.domain.Parametro</value>
+<!-- 				<value> pe.com.bbva.monitoreo.domain.Servicio</value> -->
 			</list>
 		</property>
     </bean> 
