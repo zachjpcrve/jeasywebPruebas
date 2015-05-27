@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p" 
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xmlns:tx="http://www.springframework.org/schema/tx"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:annotation-config />  
+    <context:component-scan base-package="pe.com" />
+    
+	 <tx:annotation-driven transaction-manager="txManager"/>
+ 	   
+ 	 <bean id="genericDAO" class="pe.com.bbva.core.dao.GenericDAOImpl">
+ 	 	 <property name="hibernateTemplate" ref="hibernateTemplate" />
+ 	 </bean>
+ 	 <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+      <property name="sessionFactory" ref="sessionFactory" />
+   	 </bean>
+     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    	<property name="dataSource">
+    		<ref bean="dataSource"/>
+    	</property>
+    	<property name="hibernateProperties">
+    
+    		<props>
+   			<prop key="hibernate.hbm2ddl.auto">update</prop> 
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+<!-- 			<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop> -->
+				<prop key="hibernate.show_sql">true</prop>
+    		</props>
+    	</property>
+    	
+		<property name="annotatedClasses"><!-- mapeo de clases -->
+			<list>
+				<value> pe.com.bbva.seguridad.domain.Usuario</value>
+				<value> pe.com.bbva.seguridad.domain.Perfil</value>
+				<value> pe.com.bbva.seguridad.domain.Modulo</value>
+				<value> pe.com.bbva.mantenimiento.domain.Tabla</value>
+				<value> pe.com.bbva.mantenimiento.domain.Parametro</value>
+			</list>
+		</property>
+    </bean> 
+
+<!-- instanciar la transaccionabilidad-->
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>	
+
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/comp/env/jdbc/APP_MONAPP" />
+		<property name="lookupOnStartup" value="false" />
+		<property name="cache" value="true" />
+		<property name="proxyInterface" value="javax.sql.DataSource" />
+	</bean>  
+	
+<!-- 	<BEAN ID="DATASOURCE" CLASS="ORG.SPRINGFRAMEWORK.JNDI.JNDIOBJECTFACTORYBEAN"> -->
+<!-- 		<PROPERTY NAME="JNDINAME" VALUE="JDBC/APP_TEST" /> -->
+<!-- 		<PROPERTY NAME="LOOKUPONSTARTUP" VALUE="FALSE" /> -->
+<!-- 		<PROPERTY NAME="CACHE" VALUE="TRUE" /> -->
+<!-- 		<PROPERTY NAME="PROXYINTERFACE" VALUE="JAVAX.SQL.DATASOURCE" /> -->
+<!-- 	</BEAN>   -->
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
+<!-- 		<property name="driverClassName"><value>oracle.jdbc.driver.OracleDriver</value></property> -->
+<!-- 		<property name="url"><value>jdbc:oracle:thin:@localhost:1521:xe</value></property> -->
+<!-- 		<property name="username"><value>cardel</value></property> -->
+<!-- 		<property name="password"><value>cardel</value></property> -->
+<!-- 	</bean>   -->
+	
+	<!--Definicion de Threads-->
+<!-- 	<bean id="poolThreadTaskExecutor" -->
+<!-- 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"> -->
+<!-- 		<property name="corePoolSize" value="2" /> -->
+<!-- 		<property name="maxPoolSize" value="5" /> -->
+<!-- 		<property name="queueCapacity" value="20" /> -->
+<!-- 	</bean> -->
+	
+	<!--Definicion de Job-->
+<!-- 	<bean id="jobProgramaDelegar" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 	  <property name="targetObject" ref="changeProgramaDelegarJob"></property> -->
+<!-- 	  <property name="targetMethod" value="executeChangeEstado"></property> -->
+<!-- 	  <property name="concurrent" value="false"></property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="cronTriggerProgramaDelegar" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 		<property name="jobDetail" ref="jobProgramaDelegar"></property> -->
+<!-- 	  	<property name="cronExpression" value="0 0 11 * * ?"></property> -->
+<!-- 	</bean> -->
+	<!--Correo Delegacion-->
+<!-- 	<bean id="jobProgramaCorreo" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 	  <property name="targetObject" ref="sendProgramaCorreoJob"></property> -->
+<!-- 	  <property name="targetMethod" value="executeSendCorreo"></property> -->
+<!-- 	  <property name="concurrent" value="false"></property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="cronTriggerProgramaCorreo" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 		<property name="jobDetail" ref="jobProgramaCorreo"></property> -->
+<!-- 	  	<property name="cronExpression" value="0 0 11 * * ?"></property> -->
+<!-- 	</bean> -->
+	
+
+<!-- 	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean"> -->
+<!--       <property name="velocityProperties"> -->
+<!--          <value> -->
+<!--             resource.loader=class -->
+<!--             class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader -->
+<!--          </value> -->
+<!--       </property> -->
+<!--    </bean> -->
+
+<!-- 	<bean id="adminProceso" class="pe.com.bbva.threads.AdminProceso">	 -->
+<!-- 		<constructor-arg ref="poolThreadTaskExecutor" /> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="hiloProceso" class="pe.com.bbva.threads.HiloProceso" -->
+<!-- 	scope="singleton"> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="schedulerFactoyBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" -->
+<!-- 	 autowire="no"> -->
+<!-- 	  <property name="triggers"> -->
+<!-- 	    <list> -->
+<!-- 	      <ref bean="cronTriggerProgramaDelegar"></ref> -->
+<!-- 	      <ref bean="cronTriggerProgramaCorreo"></ref> -->
+<!-- 		</list> -->
+<!-- 	  </property> -->
+<!-- 	</bean> -->
+</beans>

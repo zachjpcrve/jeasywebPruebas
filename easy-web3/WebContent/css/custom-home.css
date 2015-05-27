@@ -1,0 +1,129 @@
+div#header-custom{
+
+}
+.hc-horizontal-level1-right{
+	float: right;
+	display: block;
+}
+#logo-enlaces{
+	padding-top: 10px; 
+}
+div.hc-enlaces{
+	float: left;
+	text-align: center;
+    width: 28px;
+    display: block;
+    margin-right: 10px;
+}
+div.hc-enlaces a{
+	color: #004e98;	
+	font-weight: bold;
+	text-decoration: none;
+}
+div.hc-enlaces a:hover{
+	color: #00a9e8;
+}
+div.hc-enlaces a span{
+	display: block;	
+}
+div.hc-enlaces a img{
+	display: block;
+	border: none;
+}
+
+.hc-horizontal-level2{
+	margin-left: 10px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 20;
+}
+#hc-bienvenida p {
+    margin: 5px;
+}
+#hc-bienvenida p img{
+	float: left;
+    margin-top: -5px;
+}
+.txt-bienvenido{
+	font-family: Verdana, Arial;
+	font-size: 13px;
+	font-weight: normal;
+}
+.txt-bienvenido-usuario{
+	color: #00A9E8;
+}
+.txt-bienvenido-titulo{
+	color: #004E98;
+	width: 100%;
+	display: block; 
+}
+.hc-vertical-right{
+	float: right;
+	width: 640px; 
+}
+#hc-animacion{
+	margin-top: 0px;
+	padding-top: 35px; 
+}
+.hc-vertical-right div.hc-panel-horizontal-titulo{
+	padding: 0px; 
+	margin-top: 50px; 
+}
+.hc-vertical-right div.hc-panel-horizontal-titulo h1{
+	color: #004E98;
+    font-family: Verdana,Arial;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 15px;
+    text-align: center;
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-horizontal-destacados{
+	display: block;
+	width: 600px; 
+	margin-left: 40px; 
+	float: left; 
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-horizontal-destacados div.hc-panel-destacado{
+	display: block;
+    float: left;
+    padding: 5px;
+    width: 280px; 
+    margin-top: 25px; 
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-horizontal-destacados div.hc-panel-destacado img{
+	padding: 5px; 
+	float: left;
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-horizontal-destacados div.hc-panel-destacado h4{
+	color: #00A9E8;
+    float: left;
+    font-family: Verdana,Arial;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 5px;
+    margin-top: 25px;
+    padding: 5px;
+    text-align: center;
+    width: 160px;
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-observador{
+	float: right;
+    margin-top: 0px;
+}
+div.hc-panel-horizontal-cuadro-destacados div.hc-panel-observador img {
+	padding: 0px; 
+}
+#circularMenu{
+	/*height: 260px; */
+	height: 390px; 
+	background: #fff;
+}
+#logo-sistema-footer{
+	float: right;
+	margin-top: 0x;
+}
+
+/*---Estilo agregado para fijar un ancho minimo---*/
+#tabla-contenedor-principal{
+	width: 960px;  
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="default" template="/default.jsp">
+		<put-attribute name="title" value="Template" />
+		<put-attribute name="header" value="/header.jsp" />
+		<put-attribute name="body" value="/body.jsp" />
+		<put-attribute name="footer" value="/footer.jsp" />
+	</definition>
+    
+	<definition name="defaultPopup" template="/defaultPopup.jsp">
+		<put-attribute name="body" value="/body.jsp" />
+	</definition>
+	
+	<definition name="panel" extends="default">
+		<put-attribute name="title" value="Panel" />
+		<put-attribute name="body" value="/pages/panel.jsp" />
+	</definition>
+	
+	<definition name="viewListUsuario" extends="default">
+		<put-attribute name="title" value="Listado de Usuarios" />
+		<put-attribute name="body" value="/pages/seguridad/lista_usuario.jsp" />
+	</definition>
+	<definition name="viewFormUsuario" extends="default">
+		<put-attribute name="title" value="Usuario" />
+		<put-attribute name="body" value="/pages/seguridad/edicion_usuario.jsp" />
+	</definition>
+	
+	<definition name="viewListPerfil" extends="default">
+		<put-attribute name="title" value="Listado de Perfiles" />
+		<put-attribute name="body" value="/pages/seguridad/lista_perfil.jsp" />
+	</definition>
+	<definition name="viewFormPerfil" extends="default">
+		<put-attribute name="title" value="Perfil" />
+		<put-attribute name="body" value="/pages/seguridad/edicion_perfil.jsp" />
+	</definition>
+	
+	<definition name="viewListModulo" extends="default">
+		<put-attribute name="title" value="Listado de Modulos" />
+		<put-attribute name="body" value="/pages/seguridad/lista_modulo.jsp" />
+	</definition>
+	<definition name="viewFormModulo" extends="default">
+		<put-attribute name="title" value="Modulo" />
+		<put-attribute name="body" value="/pages/seguridad/edicion_modulo.jsp" />
+	</definition>
+
+	<definition name="viewListTabla" extends="default">
+		<put-attribute name="title" value="Listado de Tablas" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/lista_tabla.jsp" />
+	</definition>
+	<definition name="viewFormTabla" extends="default">
+		<put-attribute name="title" value="Tabla" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/edicion_tabla.jsp" />
+	</definition>
+
+	<definition name="viewListTablaValor" extends="default">
+		<put-attribute name="title" value="Listado de Valores de Tablas" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/lista_tabla_valor.jsp" />
+	</definition>
+	<definition name="viewFormTablaValor" extends="default">
+		<put-attribute name="title" value="Nuevo Valor de Tabla" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/edicion_tabla_valor.jsp" />
+	</definition>
+
+	<definition name="viewListParametro" extends="default">
+		<put-attribute name="title" value="Listado de Parametros" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/lista_parametro.jsp" />
+	</definition>
+	<definition name="viewFormParametro" extends="default">
+		<put-attribute name="title" value="Parametro" />
+		<put-attribute name="body"
+			value="/pages/mantenimiento/edicion_parametro.jsp" />
+	</definition>
+	
+</tiles-definitions>
