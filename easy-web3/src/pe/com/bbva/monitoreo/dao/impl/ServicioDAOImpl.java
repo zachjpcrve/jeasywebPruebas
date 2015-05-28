@@ -37,40 +37,39 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 
 	public List<Servicio> findServicios(Servicio servicio) throws Exception,
 			DAOException {
-//		String where = "";
-//
-//		if (servicio.getDescripcion() == null) {
-//			servicio.setDescripcion("");
-//		}
-//		where = where + " upper(descripcion) like upper('%"
-//				+ servicio.getDescripcion() + "%')";
-//		if (servicio.getCodigo() != null && !servicio.getCodigo().trim().equals("")) {
-//			where = where + " and upper(codigo) like upper('%"
-//					+ servicio.getCodigo() + "%')";
-//		}
-//		if (servicio.getTipoModulo() != null
-//				&& servicio.getTipoModulo().getId() != null) {
-//			where = where + " and tipoModulo.id ="
-//					+ servicio.getTipoModulo().getId();
-//		}
-//		if(servicio.getEstado()!= null &&
-//				   !servicio.getEstado().equals("")){
-//					where = where +" and upper(estado) like upper('%" +
-//					servicio.getEstado()+
-//							"%') ";
-//		}
-//		String orders = " order by fechaCreacion desc,codigo, tipoModulo.id, descripcion";
-//		if (where.length() > 0) {
-//			where = " where " + where;
-//		}
-//		List<Servicio> listaServicios = super.executeQuery(Servicio.class, where, orders);
-//		return listaServicios;
-		return null;
+		String where = "";
+
+		if (servicio.getNombre() == null) {
+			servicio.setNombre("");
+		}
+		where = where + " upper(nombre_serv) like upper('%"
+				+ servicio.getNombre() + "%')";
+		if (servicio.getUrl() != null && !servicio.getUrl().trim().equals("")) {
+			where = where + " and upper(url_serv) like upper('%"
+					+ servicio.getUrl() + "%')";
+		}
+		if (servicio.getTipoAmbiente() != null
+				&& servicio.getTipoAmbiente().getId() != null) {
+			where = where + " and tipoAmbiente.id ="
+					+ servicio.getTipoAmbiente().getId();
+		}
+		if(servicio.getEstado()!= null &&
+				   !servicio.getEstado().equals("")){
+					where = where +" and upper(estado_serv) like upper('%" +
+					servicio.getEstado()+
+							"%') ";
+		}
+		String orders = " order by url_serv, tipoAmbiente.id, nombre_serv";
+		if (where.length() > 0) {
+			where = " where " + where;
+		}
+		List<Servicio> listaServicios = super.executeQuery(Servicio.class, where, orders);
+		return listaServicios;
 	}
 
-	public List<Servicio> findServiciosByAmbiente(Tabla tipoTabla)
+	public List<Servicio> findServiciosByAmbiente(Tabla tipoAmbiente)
 			throws BOException, DAOException {
-		String query = String.format(LISTAR_SERVICIOS_POR_AMBIENTE, tipoTabla
+		String query = String.format(LISTAR_SERVICIOS_POR_AMBIENTE, tipoAmbiente
 				.getCodigo());
 		System.out.println("CONSULTANDO SERVICIOS");
 		List<Servicio> listaServicio = super.executeSQL(query, Servicio.class);

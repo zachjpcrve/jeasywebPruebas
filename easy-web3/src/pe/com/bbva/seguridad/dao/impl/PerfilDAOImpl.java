@@ -43,5 +43,4 @@ public class PerfilDAOImpl extends GenericDAOImpl<Perfil> implements PerfilDAO {
 				orders);
 		return listaPerfiles;
 	}
-
 }

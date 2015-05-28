@@ -29,8 +29,14 @@ public interface Constantes {
 	public static final String VAL_TIPO_OPCION_STRING = "3";
 	public static final Long VAL_TIPO_SUB_OPCION = 4L;
 	public static final String VAL_TIPO_SUB_OPCION_STRING = "4";
-	
-	
-	
+	public static final Long ID_TABLA_TIPO_SERVICIO = 2L;
+	public static final Long VAL_TIPO_SERVICIO=2L;
+	public static final String VAL_TIPO_SERVICIO_STRING = "2";
+	public static final Long VAL_TIPO_TEST = 3L;
+	public static final String VAL_TIPO_TEST_STRING = "3";
+	public static final Long VAL_TIPO_CALIDAD = 3L;
+	public static final String VAL_TIPO_CALIDAD_STRING = "4";
+	public static final Long VAL_TIPO_PRODUCCION = 3L;
+	public static final String VAL_TIPO_PRODUCCION_STRING = "5";
 }
 

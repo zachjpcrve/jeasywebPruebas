@@ -52,7 +52,7 @@
 							<td class="label">Orden:</td>
 							<td><s:textfield id="txtOrden"
 								onkeypress="return acceptNum(event);" name="modulo.orden"
-								maxlength="3" cssClass="validate[required,custom[integer]]" /></td>
+								maxlength="3" cssClass="validate[required,custocmbm[integer]]" /></td>
 						</tr>
 						<tr>
 							<td class="label">Estado:</td>
