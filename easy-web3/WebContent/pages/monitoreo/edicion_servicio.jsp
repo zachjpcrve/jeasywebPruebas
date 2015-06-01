@@ -1,9 +1,9 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%@page import="pe.com.bbva.util.Constantes" %>
-<s:form action="saveServicio" id="servicioForm" them="simple">
-	<s:hidden name="servicio.id"></s:hidden>
-	<s:hidden name="idServicio"></s:hidden>
-	<s:hidden name="urlAntiguo"></s:hidden>
+<s:form action="saveServicio" id="servicioForm" theme="simple">
+	<s:hidden name="servicio.id"/>
+	<s:hidden name="idServicio"/>
+	<s:hidden name="urlAntiguo"/>
 	<table width="100%">
 		<tr>
 			<td>
@@ -28,7 +28,7 @@
 									<tr>
 										<td class="label">Tipo Ambiente:</td>
 										<td><s:select id="cmbTipoAmbiente" name="servicio.tipoAmbiente.id"
-											list="listaTiposModulo" listKey="value" listValue="label"
+											list="listaTiposAmbiente" listKey="value" listValue="label"
 											cssClass="validate[required]"/>
 										</td>
 									</tr>
@@ -48,7 +48,7 @@
 									<tr>
 										<td class="label">Usuario:</td>
 										<td><s:textfield theme="simple" name="servicio.usuario"
-										id="txtUsuario" maxlength="20" size="40"
+										id="txtUsuario" maxlength="10" size="10"
 										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
 										</td>
 									</tr>
@@ -66,18 +66,17 @@
 										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
 										</td>
 									</tr>
-									<tr>
-										<td class="label">Aplicativo:</td>
-										<td><s:textfield theme="simple" name="servicio.aplicativo"
-										id="txtAplicativo" maxlength="50" size="50"
-										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
-										</td>
-									</tr>
+<!-- 									<tr> -->
+<!-- 										<td class="label">Aplicativo:</td> -->
+<%-- 										<td><s:textfield id=""cmbTipoAplicativo theme="simple" name="servicio.tipoAplicativo.id" --%>
+<%-- 											list="listaTiposAplicativo" listKey="value" listValue="label"  --%>
+<%-- 											maxlength="50" size="50" --%>
+<%-- 										cssClass="validate[required]"/> --%>
+<!-- 										</td> -->
+<!-- 									</tr> -->
 								</table>
 							</div>
 						</td>
-					<tr>
-						
 					</tr>
 				</table>
 				<table>
@@ -104,13 +103,13 @@
 			limpiarForm();
 		});
     	$("#cmbReq_Aut").change(function(){
-    			if($("#cmbReq_Aut").val()=="<%=Constantes.VAL_TIPO_SERVICIO_STRING%>" ){
+    			if($("#cmbReq_Aut").val()=="0"){
     			//Habilitando Campos
     			$("#txtUsuario").attr("disabled",true);
-    			$("#txtClave").attr("disabled",true);
+    			$("#pswClave").attr("disabled",true);
     			}else{
     			$("#txtUsuario").attr("disabled",false);
-    			$("#txtClave").attr("disabled",false);
+    			$("#pswClave").attr("disabled",false);
     			}
     	});
     	$("#cmbReq_Aut").trigger('change');
@@ -125,7 +124,7 @@
 		$("#txtUsuario").val("");
 		$("#txtClave").val("");
 		$("#txtDescripcion").val("");
-		$("#txtAplicativo").val("");
+// 		$("#txtAplicativo").val("");
 	}
 	function retornar(){
 		$("#formAux").attr("action","./initMonitoreo.do");

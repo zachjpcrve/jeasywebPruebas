@@ -30,7 +30,7 @@ import pe.com.bbva.util.SelectItem;
 @Results({
 	@Result(name="viewFormServicio",type="tiles", location="viewFormServicio"),
 	@Result(name="viewListServicio",type="tiles", location="viewListServicio"),
-	@Result(name="listaServicio",type="json",params={"root","grid"})
+	@Result(name="listaServicios",type="json",params={"root","grid"})
 })
 public class ServicioAction extends GenericAction{
 	/**
@@ -48,8 +48,9 @@ public class ServicioAction extends GenericAction{
 	private Servicio servicio;
 	private Servicio servicioBuscar;
 	private List<Servicio> listaServicios;
-	private List<SelectItem> listaPadres = new ArrayList<SelectItem>();
-	private List<SelectItem> listaTiposServicio = new ArrayList<SelectItem>();
+	private List<SelectItem> listaPadresServ = new ArrayList<SelectItem>();
+	private List<SelectItem> listaTiposAmbiente = new ArrayList<SelectItem>();
+//	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
 	
 	public void cleanForm() {
 		setIdServicio(null);
@@ -69,10 +70,7 @@ public class ServicioAction extends GenericAction{
 			if (servicioBuscar == null) {
 				servicioBuscar = new Servicio();
 			}
-			/**listaServicios = servicioBO.findServicios(servicioBuscar);
-			if (listaServicios.isEmpty()) {
-				addActionError("No se encontraron resultados");
-			}**/
+
 			setGrid(servicioBO.findToGrid(servicioBuscar,getSidx()+" "+getSord(),getPage(),getRows()));
 			if(getGrid().getRecords().equals(new Integer(0))){
 				addActionError("No se encontraron resultados");
@@ -81,7 +79,7 @@ public class ServicioAction extends GenericAction{
 			logger.error(StringUtil.getStackTrace(e));
 		} catch (Exception e) {
 			logger.error(StringUtil.getStackTrace(e));
-		}
+		} 
 		return "listaServicios";
 	}
 
@@ -100,17 +98,13 @@ public class ServicioAction extends GenericAction{
 		} catch (Exception e) {
 			logger.error(StringUtil.getStackTrace(e));
 		}
-		return "viewFormModulo";
+		return "viewFormServicio";
 	}
 	
 	@Action(value="deleteServicio")
 	public String delete() {
 		try {
 			servicioBO.deleteLog(Servicio.class, idServicio);
-			/**if (servicioBuscar == null) {
-				servicioBuscar = new Servicio();
-			}
-			listaServicios = servicioBO.findServicios(servicioBuscar);**/
 			addActionMessage("Eliminado Correctamente.");
 		} catch (BOException e) {
 			addActionError(e.getMessage());
@@ -198,10 +192,10 @@ public class ServicioAction extends GenericAction{
 		this.listaServicios = listaServicios;
 	}
 
-	public List<SelectItem> getListaPadres() {
+	public List<SelectItem> getListaPadresServ() {
 		try {
-			listaPadres = ComboUtil.getSelectItems(servicioBO.findPadres(), "id",
-					"nombre_serv", Constantes.VAL_DEFAULT_SELECTION);
+			listaPadresServ = ComboUtil.getSelectItems(servicioBO.findPadres(), "id",
+					"descripcion", Constantes.VAL_DEFAULT_SELECTION);
 		} catch (UtilException e) {
 			e.printStackTrace();
 		} catch (BOException e) {
@@ -209,22 +203,22 @@ public class ServicioAction extends GenericAction{
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
-		return listaPadres;
+		return listaPadresServ;
 	}
 
-	public void setListaPadres(List<SelectItem> listaPadres) {
-		this.listaPadres = listaPadres;
+	public void setListaPadresServ(List<SelectItem> listaPadresServ) {
+		this.listaPadresServ = listaPadresServ;
 	}
 
 	@SuppressWarnings("static-access")
-	public List<SelectItem> getListaTiposServicio() {		
-		listaTiposServicio = ((ServiceUtil) getObjectSession("serviceUtil"))
-				.getTipos(Constantes.ID_TABLA_TIPO_SERVICIO,
+	public List<SelectItem> getListaTiposAmbiente() {		
+		listaTiposAmbiente = ((ServiceUtil) getObjectSession("serviceUtil"))
+				.getTipos(Constantes.ID_TABLA_TIPO_AMBIENTE,
 						Constantes.VAL_DEFAULT_SELECTION);
-		return listaTiposServicio;
+		return listaTiposAmbiente;
 	}
 
-	public void setListaTiposServicio(List<SelectItem> listaTiposServicio) {
-		this.listaTiposServicio = listaTiposServicio;
+	public void setListaTiposAmbiente(List<SelectItem> listaTiposAmbiente) {
+		this.listaTiposAmbiente = listaTiposAmbiente;
 	}	
 }

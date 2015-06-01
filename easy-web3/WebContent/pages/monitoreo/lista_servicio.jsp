@@ -1,6 +1,11 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <s:form action="findAllServicio" id="buscarServiciosForm" theme="simple">
-	<table>
+	<table width="100%">
+		<tr>
+			<td>
+				<div id="pageTitle">Listado de Servicios</div>
+			</td>
+		</tr>
 		<tr>
 			<td>
 				<table width="100%">
@@ -9,16 +14,10 @@
 						<div class="formpanel">
 						<table>
 							<tr>
-								<td class="label">Nombre</td>
-								<td><s:textfield them="simple" id="txtNombre"
-								 name="servicioBuscar.nombre"/> </td>
-								<td class="label">Url</td>
-								<td><s:textfield theme="simple" id="txtUrl"
-								name="servicioBuscar.url"/> </td>
-								<td class="label">Estado</td>
-								<td><s:select
-									list="#{'':'TODOS','1':'OK','0':'ERROR'}" theme="simple"
-									id="cmbEstado" name="servicioBuscar.estado_serv"/> </td>
+								<td class="label"> Ambiente:</td>
+								<td><s:select theme="simple" id="cmbAmbiente"
+								name="servicioBuscar.tipoAmbiente.id" list="listaTiposAmbiente"
+								listKey="value" listValue="label" /></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -32,8 +31,7 @@
 							cssClass="search-form ui-button ui-widget ui-state-default ui-corner-all"
 						/>&nbsp;
 						<s:submit value="Nuevo Servicio" id="btnNuevo" theme="simple"
-							cssClass="ui-button ui-widget ui-state-default ui-corner-all"
-							action="newServicio"/>&nbsp;
+							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="newServicio" /> &nbsp;
 						<input type="button" value="Limpiar" id="btnLimpiar" 
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
 						</td>
@@ -44,9 +42,8 @@
 	</table>
 </s:form>
 <div style="width:100%; padding:10px 10px 10px 10px;">
-	<table id="dataTable" width="100%">
+	<table id="dataTable" width="100%"></table>
 	<div id="tablePager"></div>
-	</table>
 </div>
 <script language="JavaScript" type="text/javascript">
 	$(document).ready(function() {
@@ -108,13 +105,10 @@
 				paintEstado('dataTable_estado');
 			}
 		});
-    	
-    	
 	});
 	
 	function limpiarForm(){
-		$("#txtNombre").val("");
-		$("#txtUrl").val("");
-		$("#cmbEstado").val("");
+		$("#cmbAmbiente").val("");
+// 		$("#cmbAplicativo").val("");
 	}
 </script>

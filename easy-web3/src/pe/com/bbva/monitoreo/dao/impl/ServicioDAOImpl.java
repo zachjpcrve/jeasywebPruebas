@@ -18,18 +18,6 @@ import pe.com.bbva.monitoreo.domain.Servicio;
 public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements ServicioDAO{
 	private Logger logger = Logger.getLogger(this.getClass());
 
-	private static String LISTAR_SERVICIOS_POR_AMBIENTE = "SELECT A.* FROM (SELECT MO.* FROM MONAPP.TMONAPP_USUARIO US "
-			+ "LEFT JOIN MONAPP.TMONAPP_USUARIO_PERFIL UP "
-			+ "ON US.ID_USUARIO = UP.ID_USUARIO "
-			+ "LEFT JOIN MONAPP.TMONAPP_PERFIL_MODULO PM "
-			+ "ON PM.ID_PERFIL = UP.ID_PERFIL "
-			+ "LEFT JOIN MONAPP.TMONAPP_MODULO MO "
-			+ "ON MO.ID_MODULO = PM.ID_MODULO "
-			+ "WHERE US.CODIGO_USUARIO = '%s' AND"
-			+ " PM.ID_MODULO IS NOT NULL ) A "
-			+ " START WITH A.SUPERIOR_ID IS NULL "
-			+ " CONNECT BY PRIOR A.ID_MODULO = A.SUPERIOR_ID";
-
 	@Autowired
 	public ServicioDAOImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
@@ -42,10 +30,10 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		if (servicio.getNombre() == null) {
 			servicio.setNombre("");
 		}
-		where = where + " upper(nombre_serv) like upper('%"
+		where = where + " upper(nombre) like upper('%"
 				+ servicio.getNombre() + "%')";
 		if (servicio.getUrl() != null && !servicio.getUrl().trim().equals("")) {
-			where = where + " and upper(url_serv) like upper('%"
+			where = where + " and upper(url) like upper('%"
 					+ servicio.getUrl() + "%')";
 		}
 		if (servicio.getTipoAmbiente() != null
@@ -53,13 +41,18 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 			where = where + " and tipoAmbiente.id ="
 					+ servicio.getTipoAmbiente().getId();
 		}
+		if(servicio.getTipoAplicativo()!=null
+				&& servicio.getTipoAplicativo().getId() !=null){
+			where = where + " and tipoAplicativo.id ="
+					+servicio.getTipoAplicativo().getId();
+		}
 		if(servicio.getEstado()!= null &&
 				   !servicio.getEstado().equals("")){
-					where = where +" and upper(estado_serv) like upper('%" +
+					where = where +" and upper(estado) like upper('%" +
 					servicio.getEstado()+
 							"%') ";
 		}
-		String orders = " order by url_serv, tipoAmbiente.id, nombre_serv";
+		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, tipoAplicativo.id, nombre";
 		if (where.length() > 0) {
 			where = " where " + where;
 		}
@@ -67,13 +60,14 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		return listaServicios;
 	}
 
-	public List<Servicio> findServiciosByAmbiente(Tabla tipoAmbiente)
-			throws BOException, DAOException {
-		String query = String.format(LISTAR_SERVICIOS_POR_AMBIENTE, tipoAmbiente
-				.getCodigo());
-		System.out.println("CONSULTANDO SERVICIOS");
-		List<Servicio> listaServicio = super.executeSQL(query, Servicio.class);
-		System.out.println("CANTIDAD DE SERVICIOS="+listaServicio.size());
-		return listaServicio;
-	}
+//	public List<Servicio> findServiciosByAmbiente(Tabla tipoAmbiente)
+//			throws BOException, DAOException {
+//		String query = String.format(LISTAR_SERVICIOS_POR_AMBIENTE, tipoAmbiente
+//				.getCodigo());
+//		System.out.println("CONSULTANDO SERVICIOS");
+//		List<Servicio> listaServicio = super.executeSQL(query, Servicio.class);
+//		System.out.println("CANTIDAD DE SERVICIOS="+listaServicio.size());
+//		return listaServicio;
+//		return null;
+//	}
 }

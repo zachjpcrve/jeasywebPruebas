@@ -81,6 +81,7 @@
 		<put-attribute name="body"
 			value="/pages/mantenimiento/edicion_parametro.jsp" />
 	</definition>
+	
 	<definition name="viewListServicio" extends="default">
 		<put-attribute name="title" value="Listado de Servicios"/>
 		<put-attribute name="body" value="/pages/monitoreo/lista_servicio.jsp"/>

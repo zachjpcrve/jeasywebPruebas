@@ -27,6 +27,7 @@ private Logger logger = Logger.getLogger(this.getClass());
 	
 	@Resource
 	private ServicioDAO servicioDAO;
+	
 	private String urlAntiguo;
 	
 	public List<Servicio> findServicios(Servicio servicio) throws Exception {
@@ -47,9 +48,9 @@ private Logger logger = Logger.getLogger(this.getClass());
 		if(servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_TEST) ||
 		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_CALIDAD) || 
 		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_PRODUCCION)){
-//			if(servicio.getSuperior() == null){
-//				throw new BOException("Seleccione un padre");
-//			}
+			if(servicio.getSuperior() == null){
+				throw new BOException("Seleccione un padre");
+			}
 		}
 		return true;
 	}
@@ -62,8 +63,8 @@ private Logger logger = Logger.getLogger(this.getClass());
 	}
 	
 	public List<Servicio> findPadres() throws BOException, DAOException {
-		List<Servicio> listaPadres = super.executeListNamedQuery("listaPadres", new ArrayList<String>());
-		return listaPadres;
+		List<Servicio> listaPadresServ = super.executeListNamedQuery("listaPadresServ", new ArrayList<String>());
+		return listaPadresServ;
 	}
 
 	public Servicio findById(Long id) throws BOException, DAOException {

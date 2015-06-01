@@ -6,14 +6,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import pe.com.bbva.core.domain.EntidadBase;
 import pe.com.bbva.mantenimiento.domain.Tabla;
+import pe.com.bbva.util.Constantes;
 
 @Entity
 @Table(name="TMONAPP_SERVICIO",schema="MONAPP")
+@NamedQueries({
+@NamedQuery(name="listaPadresServ", 
+			query = " from Servicio where tipoAmbiente.id in ("+
+					Constantes.VAL_TIPO_CALIDAD_STRING+","+
+					Constantes.VAL_TIPO_TEST_STRING+" ,"+
+					Constantes.VAL_TIPO_PRODUCCION_STRING+") and estado ='"+
+					Constantes.VAL_ACTIVO+"' order by superior.id"),				
+})
 @SequenceGenerator(name="SEQ_SERVICIO",
 						initialValue=1,
 						allocationSize=1,
@@ -33,7 +45,9 @@ public class Servicio extends EntidadBase{
 	private String usuario;
 	private String clave;
 	private String descripcion_serv;
-	private String aplicativo;
+	private Tabla tipoAplicativo;
+	private Servicio superior;
+	private Integer orden;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_SERVICIO")
@@ -69,6 +83,7 @@ public class Servicio extends EntidadBase{
 		this.nombre = nombre;
 	}
 	
+	@ManyToOne
 	@JoinColumn(name="ID_TIPOAMBIENTE")
 	public Tabla getTipoAmbiente() {
 		return tipoAmbiente;
@@ -109,11 +124,30 @@ public class Servicio extends EntidadBase{
 		this.descripcion_serv = descripcion_serv;
 	}
 	
-	@Column(name="APLICATIVO")
-	public String getAplicativo() {
-		return aplicativo;
+	@ManyToOne
+	@JoinColumn(name="TIPO_APLICATIVO")
+	public Tabla getTipoAplicativo() {
+		return tipoAplicativo;
 	}
-	public void setAplicativo(String aplicativo) {
-		this.aplicativo = aplicativo;
+	public void setTipoAplicativo(Tabla tipoAplicativo) {
+		this.tipoAplicativo = tipoAplicativo;
+	}
+	
+	@JoinColumn(name = "SUPERIOR_ID")
+	public Servicio getSuperior() {
+		return superior;
+	}
+
+	public void setSuperior(Servicio superior) {
+		this.superior = superior;
+	}
+
+	@Column(name="ORDEN")
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
 	}
 }

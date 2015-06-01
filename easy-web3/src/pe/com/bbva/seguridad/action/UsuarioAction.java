@@ -63,7 +63,7 @@ public class UsuarioAction extends GenericAction {
 		cleanForm();
 		return "viewListUsuario";
 	}
-
+	
 	@Action(value="findAllUsuario")
 	public String findAll() {
 		try {

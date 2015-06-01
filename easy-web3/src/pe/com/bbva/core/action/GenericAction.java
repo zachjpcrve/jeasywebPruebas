@@ -162,7 +162,6 @@ public class GenericAction extends ActionSupport {
 	public void setCamposAuditoria(Object obj,UsuarioSession usuarioSession){
 		Method method = null;
 		Object id = null;
-	
 			try {
 				method = obj.getClass().getMethod("getId", null);
 				id = method.invoke(obj, null);
