@@ -45,13 +45,11 @@ private Logger logger = Logger.getLogger(this.getClass());
 				throw new BOException("El url ya esta registrado");
 			}
 		}
-		if(servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_TEST) ||
-		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_CALIDAD) || 
-		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_PRODUCCION)){
-			if(servicio.getSuperior() == null){
-				throw new BOException("Seleccione un padre");
-			}
-		}
+//		if(servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_TEST) ||
+//		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_CALIDAD) || 
+//		   servicio.getTipoAmbiente().getId().equals(Constantes.VAL_TIPO_PRODUCCION)){
+//				servicio.setSuperior(null);
+//		}
 		return true;
 	}
 	
@@ -62,10 +60,10 @@ private Logger logger = Logger.getLogger(this.getClass());
 		super.save(servicio);
 	}
 	
-	public List<Servicio> findPadres() throws BOException, DAOException {
-		List<Servicio> listaPadresServ = super.executeListNamedQuery("listaPadresServ", new ArrayList<String>());
-		return listaPadresServ;
-	}
+//	public List<Servicio> findPadres() throws BOException, DAOException {
+//		List<Servicio> listaPadresServ = super.executeListNamedQuery("listaPadresServ", new ArrayList<String>());
+//		return listaPadresServ;
+//	}
 
 	public Servicio findById(Long id) throws BOException, DAOException {
 		Servicio servicio = super.findById(Servicio.class, id);

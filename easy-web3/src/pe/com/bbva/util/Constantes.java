@@ -21,8 +21,8 @@ public interface Constantes {
 	
 	//id de tablas tipo
 	public static final Long ID_TABLA_TIPO_MODULO = 1L;
-	public static final Long ID_TABLA_TIPO_AMBIENTE=2L;
-	public static final Long ID_TABLA_TIPO_APLICATIVO=3L;
+	public static final Long ID_TABLA_TIPO_AMBIENTE=6L;
+//	public static final Long ID_TABLA_TIPO_APLICATIVO=3L;
 	
 	//tabla tipo de modulo
 	public static final Long VAL_TIPO_MODULO = 2L;
@@ -31,15 +31,15 @@ public interface Constantes {
 	public static final String VAL_TIPO_OPCION_STRING = "3";
 	public static final Long VAL_TIPO_SUB_OPCION = 4L;
 	public static final String VAL_TIPO_SUB_OPCION_STRING = "4";
-	public static final Long ID_TABLA_TIPO_SERVICIO = 2L;
 	
 	//Tabla tipo de Ambiente
-	public static final Long VAL_TIPO_CALIDAD = 3L;
+	public static final Long VAL_TIPO_CALIDAD = 7L;
 	public static final String VAL_TIPO_CALIDAD_STRING = "7";
-	public static final Long VAL_TIPO_PRODUCCION = 5L;
+	public static final Long VAL_TIPO_PRODUCCION = 8L;
 	public static final String VAL_TIPO_PRODUCCION_STRING="8";
-	public static final Long VAL_TIPO_TEST = 4L;
+	public static final Long VAL_TIPO_TEST = 9L;
 	public static final String VAL_TIPO_TEST_STRING = "9";
 	//Tabla tipo de Aplicativo
+	
 }
 

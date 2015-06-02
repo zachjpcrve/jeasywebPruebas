@@ -41,18 +41,18 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 			where = where + " and tipoAmbiente.id ="
 					+ servicio.getTipoAmbiente().getId();
 		}
-		if(servicio.getTipoAplicativo()!=null
-				&& servicio.getTipoAplicativo().getId() !=null){
-			where = where + " and tipoAplicativo.id ="
-					+servicio.getTipoAplicativo().getId();
-		}
+//		if(servicio.getTipoAplicativo()!=null
+//				&& servicio.getTipoAplicativo().getId() !=null){
+//			where = where + " and tipoAplicativo.id ="
+//					+servicio.getTipoAplicativo().getId();
+//		}
 		if(servicio.getEstado()!= null &&
 				   !servicio.getEstado().equals("")){
 					where = where +" and upper(estado) like upper('%" +
 					servicio.getEstado()+
 							"%') ";
 		}
-		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, tipoAplicativo.id, nombre";
+		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, nombre";
 		if (where.length() > 0) {
 			where = " where " + where;
 		}

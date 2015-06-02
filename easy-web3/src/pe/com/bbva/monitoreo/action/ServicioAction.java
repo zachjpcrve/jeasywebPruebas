@@ -48,7 +48,7 @@ public class ServicioAction extends GenericAction{
 	private Servicio servicio;
 	private Servicio servicioBuscar;
 	private List<Servicio> listaServicios;
-	private List<SelectItem> listaPadresServ = new ArrayList<SelectItem>();
+//	private List<SelectItem> listaPadresServ = new ArrayList<SelectItem>();
 	private List<SelectItem> listaTiposAmbiente = new ArrayList<SelectItem>();
 //	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
 	
@@ -192,23 +192,23 @@ public class ServicioAction extends GenericAction{
 		this.listaServicios = listaServicios;
 	}
 
-	public List<SelectItem> getListaPadresServ() {
-		try {
-			listaPadresServ = ComboUtil.getSelectItems(servicioBO.findPadres(), "id",
-					"descripcion", Constantes.VAL_DEFAULT_SELECTION);
-		} catch (UtilException e) {
-			e.printStackTrace();
-		} catch (BOException e) {
-			e.printStackTrace();
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		return listaPadresServ;
-	}
-
-	public void setListaPadresServ(List<SelectItem> listaPadresServ) {
-		this.listaPadresServ = listaPadresServ;
-	}
+//	public List<SelectItem> getListaPadresServ() {
+//		try {
+//			listaPadresServ = ComboUtil.getSelectItems(servicioBO.findPadres(), "id",
+//					"descripcion", Constantes.VAL_DEFAULT_SELECTION);
+//		} catch (UtilException e) {
+//			e.printStackTrace();
+//		} catch (BOException e) {
+//			e.printStackTrace();
+//		} catch (DAOException e) {
+//			e.printStackTrace();
+//		}
+//		return listaPadresServ;
+//	}
+//
+//	public void setListaPadresServ(List<SelectItem> listaPadresServ) {
+//		this.listaPadresServ = listaPadresServ;
+//	}
 
 	@SuppressWarnings("static-access")
 	public List<SelectItem> getListaTiposAmbiente() {		

@@ -42,7 +42,7 @@
 									<tr>
 										<td class="label">Requiere Autentificaci&oacute;n</td>
 										<td><s:select list="#{'1':'SI','0':'NO'}"
-											them="simple" id="cmbReq_Aut" name="servicio.req_aut"/>
+											theme="simple" id="cmbReq_Aut" name="servicio.req_aut"/>
 										</td>
 									</tr>
 									<tr>
@@ -55,8 +55,8 @@
 									<tr>
 										<td class="label">Clave:</td>
 										<td><s:password theme="simple" name="servicio.clave"
-										id="pswClave" maxlength="8" size="10"
-										cssClass="validate[required,custom[]onlyLetterNumber]"/>
+										id="txtClave" maxlength="8" size="10"
+										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
 										</td>
 									</tr>
 									<tr>
@@ -106,10 +106,10 @@
     			if($("#cmbReq_Aut").val()=="0"){
     			//Habilitando Campos
     			$("#txtUsuario").attr("disabled",true);
-    			$("#pswClave").attr("disabled",true);
+    			$("#txtClave").attr("disabled",true);
     			}else{
     			$("#txtUsuario").attr("disabled",false);
-    			$("#pswClave").attr("disabled",false);
+    			$("#txtClave").attr("disabled",false);
     			}
     	});
     	$("#cmbReq_Aut").trigger('change');

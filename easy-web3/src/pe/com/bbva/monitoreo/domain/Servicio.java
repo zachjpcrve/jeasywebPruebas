@@ -18,14 +18,14 @@ import pe.com.bbva.util.Constantes;
 
 @Entity
 @Table(name="TMONAPP_SERVICIO",schema="MONAPP")
-@NamedQueries({
-@NamedQuery(name="listaPadresServ", 
-			query = " from Servicio where tipoAmbiente.id in ("+
-					Constantes.VAL_TIPO_CALIDAD_STRING+","+
-					Constantes.VAL_TIPO_TEST_STRING+" ,"+
-					Constantes.VAL_TIPO_PRODUCCION_STRING+") and estado ='"+
-					Constantes.VAL_ACTIVO+"' order by superior.id"),				
-})
+//@NamedQueries({
+//@NamedQuery(name="listaPadresServ", 
+//			query = " from Servicio where tipoAmbiente.id in ("+
+//					Constantes.VAL_TIPO_CALIDAD_STRING+","+
+//					Constantes.VAL_TIPO_TEST_STRING+" ,"+
+//					Constantes.VAL_TIPO_PRODUCCION_STRING+") and estado ='"+
+//					Constantes.VAL_ACTIVO+"' order by superior.id"),				
+//})
 @SequenceGenerator(name="SEQ_SERVICIO",
 						initialValue=1,
 						allocationSize=1,
@@ -124,30 +124,30 @@ public class Servicio extends EntidadBase{
 		this.descripcion_serv = descripcion_serv;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name="TIPO_APLICATIVO")
-	public Tabla getTipoAplicativo() {
-		return tipoAplicativo;
-	}
-	public void setTipoAplicativo(Tabla tipoAplicativo) {
-		this.tipoAplicativo = tipoAplicativo;
-	}
-	
-	@JoinColumn(name = "SUPERIOR_ID")
-	public Servicio getSuperior() {
-		return superior;
-	}
-
-	public void setSuperior(Servicio superior) {
-		this.superior = superior;
-	}
-
-	@Column(name="ORDEN")
-	public Integer getOrden() {
-		return orden;
-	}
-
-	public void setOrden(Integer orden) {
-		this.orden = orden;
-	}
+//	@ManyToOne
+//	@JoinColumn(name="TIPO_APLICATIVO")
+//	public Tabla getTipoAplicativo() {
+//		return tipoAplicativo;
+//	}
+//	public void setTipoAplicativo(Tabla tipoAplicativo) {
+//		this.tipoAplicativo = tipoAplicativo;
+//	}
+//	
+//	@JoinColumn(name = "SUPERIOR_ID")
+//	public Servicio getSuperior() {
+//		return superior;
+//	}
+//
+//	public void setSuperior(Servicio superior) {
+//		this.superior = superior;
+//	}
+//
+//	@Column(name="ORDEN")
+//	public Integer getOrden() {
+//		return orden;
+//	}
+//
+//	public void setOrden(Integer orden) {
+//		this.orden = orden;
+//	}
 }

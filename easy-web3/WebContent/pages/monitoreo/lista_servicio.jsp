@@ -20,6 +20,12 @@
 								listKey="value" listValue="label" /></td>
 							</tr>
 							<tr>
+								<td class="label"> Aplicativo:</td>
+<%-- 								<td><s:select theme="simple" id="cmbAplicativo"  --%>
+<%-- 								name="servicioBuscar.tipoAplicativo.id" list="listaTiposAplicativo" --%>
+<%-- 								listKey="value" listValue="label"/> </td> --%>
+							</tr>
+							<tr>
 								<td>&nbsp;</td>
 							</tr>
 						</table>
