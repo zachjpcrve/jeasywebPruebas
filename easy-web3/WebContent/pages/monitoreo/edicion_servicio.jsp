@@ -21,7 +21,7 @@
 										<td class="label">Direccion Url:</td>
 										<td><s:textfield theme="simple" name="servicio.url"
 											id="txtUrl" maxlength="60" size="100"
-											cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"
+											cssClass="validate[required,custom[url]]"
 											/>
 										</td>
 									</tr>
@@ -66,14 +66,18 @@
 										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
 										</td>
 									</tr>
-<!-- 									<tr> -->
-<!-- 										<td class="label">Aplicativo:</td> -->
-<%-- 										<td><s:textfield id=""cmbTipoAplicativo theme="simple" name="servicio.tipoAplicativo.id" --%>
-<%-- 											list="listaTiposAplicativo" listKey="value" listValue="label"  --%>
-<%-- 											maxlength="50" size="50" --%>
-<%-- 										cssClass="validate[required]"/> --%>
-<!-- 										</td> -->
-<!-- 									</tr> -->
+									<tr>
+										<td class="label">Estado:</td>
+										<td><s:select list="#{'1':'ACTIVO','0':'INACTIVO'}" theme="simple" 
+										name="servicio.estado" id="cmbEstado"/></td>
+									</tr>
+									<tr>
+										<td class="label">Tipo Aplicativo:</td>
+										<td><s:select id="cmbTipoAplicativo" name="servicio.tipoAplicativo.id"
+											list="listaTiposAplicativo" listKey="value" listValue="label"
+											cssClass="validate[required]"/>
+										</td>
+									</tr>
 								</table>
 							</div>
 						</td>
@@ -120,11 +124,11 @@
 		$("#txtUrl").val("");
 		$("#cmbTipoAmbiente").val("");
 		$("#txtNombre").val("");
-		$("#cmbReq_Aut").val("0");
+		$("#cmbReq_Aut").val("1");
 		$("#txtUsuario").val("");
 		$("#txtClave").val("");
 		$("#txtDescripcion").val("");
-// 		$("#txtAplicativo").val("");
+		$("#cmbTipoAplicativo").val("");
 	}
 	function retornar(){
 		$("#formAux").attr("action","./initMonitoreo.do");

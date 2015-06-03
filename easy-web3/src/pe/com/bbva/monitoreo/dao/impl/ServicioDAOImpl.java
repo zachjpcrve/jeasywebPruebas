@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.com.bbva.core.dao.GenericDAOImpl;
-import pe.com.bbva.core.exceptions.BOException;
 import pe.com.bbva.core.exceptions.DAOException;
-import pe.com.bbva.mantenimiento.domain.Tabla;
 import pe.com.bbva.monitoreo.dao.ServicioDAO;
 import pe.com.bbva.monitoreo.domain.Servicio;
 
@@ -41,18 +39,18 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 			where = where + " and tipoAmbiente.id ="
 					+ servicio.getTipoAmbiente().getId();
 		}
-//		if(servicio.getTipoAplicativo()!=null
-//				&& servicio.getTipoAplicativo().getId() !=null){
-//			where = where + " and tipoAplicativo.id ="
-//					+servicio.getTipoAplicativo().getId();
-//		}
+		if(servicio.getTipoAplicativo()!=null
+				&& servicio.getTipoAplicativo().getId() !=null){
+			where = where + " and tipoAplicativo.id ="
+					+servicio.getTipoAplicativo().getId();
+		}
 		if(servicio.getEstado()!= null &&
 				   !servicio.getEstado().equals("")){
 					where = where +" and upper(estado) like upper('%" +
 					servicio.getEstado()+
 							"%') ";
 		}
-		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, nombre";
+		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, tipoAplicativo.id,nombre";
 		if (where.length() > 0) {
 			where = " where " + where;
 		}
@@ -60,14 +58,4 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		return listaServicios;
 	}
 
-//	public List<Servicio> findServiciosByAmbiente(Tabla tipoAmbiente)
-//			throws BOException, DAOException {
-//		String query = String.format(LISTAR_SERVICIOS_POR_AMBIENTE, tipoAmbiente
-//				.getCodigo());
-//		System.out.println("CONSULTANDO SERVICIOS");
-//		List<Servicio> listaServicio = super.executeSQL(query, Servicio.class);
-//		System.out.println("CANTIDAD DE SERVICIOS="+listaServicio.size());
-//		return listaServicio;
-//		return null;
-//	}
 }

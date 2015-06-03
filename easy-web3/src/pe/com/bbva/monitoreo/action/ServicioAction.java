@@ -15,13 +15,10 @@ import org.springframework.stereotype.Controller;
 import pe.com.bbva.core.action.GenericAction;
 import pe.com.bbva.core.domain.UsuarioSession;
 import pe.com.bbva.core.exceptions.BOException;
-import pe.com.bbva.core.exceptions.DAOException;
-import pe.com.bbva.core.exceptions.UtilException;
 import pe.com.bbva.core.service.ServiceUtil;
 import pe.com.bbva.core.util.StringUtil;
 import pe.com.bbva.monitoreo.bo.ServicioBO;
 import pe.com.bbva.monitoreo.domain.Servicio;
-import pe.com.bbva.util.ComboUtil;
 import pe.com.bbva.util.Constantes;
 import pe.com.bbva.util.SelectItem;
 
@@ -42,16 +39,15 @@ public class ServicioAction extends GenericAction{
 	
 	@Resource
 	private ServicioBO servicioBO;
-
+	
 	private Long idServicio;
 	private String urlAntiguo;
 	private Servicio servicio;
 	private Servicio servicioBuscar;
 	private List<Servicio> listaServicios;
-//	private List<SelectItem> listaPadresServ = new ArrayList<SelectItem>();
 	private List<SelectItem> listaTiposAmbiente = new ArrayList<SelectItem>();
-//	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
-	
+	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
+
 	public void cleanForm() {
 		setIdServicio(null);
 		setUrlAntiguo("");
@@ -192,24 +188,6 @@ public class ServicioAction extends GenericAction{
 		this.listaServicios = listaServicios;
 	}
 
-//	public List<SelectItem> getListaPadresServ() {
-//		try {
-//			listaPadresServ = ComboUtil.getSelectItems(servicioBO.findPadres(), "id",
-//					"descripcion", Constantes.VAL_DEFAULT_SELECTION);
-//		} catch (UtilException e) {
-//			e.printStackTrace();
-//		} catch (BOException e) {
-//			e.printStackTrace();
-//		} catch (DAOException e) {
-//			e.printStackTrace();
-//		}
-//		return listaPadresServ;
-//	}
-//
-//	public void setListaPadresServ(List<SelectItem> listaPadresServ) {
-//		this.listaPadresServ = listaPadresServ;
-//	}
-
 	@SuppressWarnings("static-access")
 	public List<SelectItem> getListaTiposAmbiente() {		
 		listaTiposAmbiente = ((ServiceUtil) getObjectSession("serviceUtil"))
@@ -220,5 +198,17 @@ public class ServicioAction extends GenericAction{
 
 	public void setListaTiposAmbiente(List<SelectItem> listaTiposAmbiente) {
 		this.listaTiposAmbiente = listaTiposAmbiente;
-	}	
+	}
+	
+	@SuppressWarnings("static-access")
+	public List<SelectItem> getListaTiposAplicativo() {
+		listaTiposAplicativo = ((ServiceUtil) getObjectSession("serviceUtil"))
+				.getTipos(Constantes.ID_TABLA_TIPO_APLICATIVO,
+						Constantes.VAL_DEFAULT_SELECTION);
+		return listaTiposAplicativo;
+	}
+
+	public void setListaTiposAplicativo(List<SelectItem> listaTiposAplicativo) {
+		this.listaTiposAplicativo = listaTiposAplicativo;
+	}
 }

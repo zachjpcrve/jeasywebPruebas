@@ -21,9 +21,9 @@
 							</tr>
 							<tr>
 								<td class="label"> Aplicativo:</td>
-<%-- 								<td><s:select theme="simple" id="cmbAplicativo"  --%>
-<%-- 								name="servicioBuscar.tipoAplicativo.id" list="listaTiposAplicativo" --%>
-<%-- 								listKey="value" listValue="label"/> </td> --%>
+								<td><s:select theme="simple" id="cmbAplicativo" 
+									name="servicioBuscar.tipoAplicativo.id" list="listaTiposAplicativo" 
+									listKey="value" listValue="label"/> </td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -40,6 +40,9 @@
 							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="newServicio" /> &nbsp;
 						<input type="button" value="Limpiar" id="btnLimpiar" 
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
+							
+						<s:submit value="Actualizar" id="btnActualizar" theme="simple"
+							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="Actualizar"/> &nbsp;
 						</td>
 					</tr>
 				</table>
@@ -62,12 +65,15 @@
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
 			datatype: "json",
-		   	colNames:['Id','Nombre','Url','Estado'],
+		   	colNames:['Id','Nombre','Url','Ambiente','Aplicativo','Estado','Acciones'],
 		   	colModel:[
 		   		{name:'id',index:'id',hidden:true},
-		   		{name:'nombre',index:'nombre', width:150,align:"center"},
-		   		{name:'url',index:'url', width:400,align:"center"},
+		   		{name:'nombre',index:'nombre', width:120,align:"center"},
+		   		{name:'url',index:'url', width:350,align:"center"},
+		   		{name:'tipoAmbiente.descripcion',index:'tipoAmbiente.descripcion',width:120,align:"center"},
+		   		{name:'tipoAplicativo.descripcion',index:'tipoAplicativo.descripcion',width:120,align:"center"},
 		   		{name:'estado',index:'estado', width:50,align:"center"},
+		   		{name:'act',index:'act',align:"left",width:100,sortable:false,title:false}
 		   	],
 		   	rowNum:10,
 		   	rowList:[10,25,50],
@@ -115,6 +121,6 @@
 	
 	function limpiarForm(){
 		$("#cmbAmbiente").val("");
-// 		$("#cmbAplicativo").val("");
+		$("#cmbAplicativo").val("");
 	}
 </script>
