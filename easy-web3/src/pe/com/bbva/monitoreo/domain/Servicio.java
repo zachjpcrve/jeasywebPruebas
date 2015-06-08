@@ -129,4 +129,5 @@ public class Servicio extends EntidadBase{
 	public void setTipoAplicativo(Tabla tipoAplicativo) {
 		this.tipoAplicativo = tipoAplicativo;
 	}
+	
 }

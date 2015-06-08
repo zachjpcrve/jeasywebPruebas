@@ -1,5 +1,13 @@
 package pe.com.bbva.monitoreo.bo.impl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +56,11 @@ private Logger logger = Logger.getLogger(this.getClass());
 		return true;
 	}
 	
+	public String testByUrl(Servicio servicio, String urlAntiguo)throws BOException, DAOException{
+		String estadotestByUrl=servicioDAO.testByUrl(servicio,urlAntiguo);
+		return estadotestByUrl;
+	}
+	
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void save(Servicio servicio , 
 					 String urlAntiguo) throws BOException, DAOException {
@@ -69,4 +82,12 @@ private Logger logger = Logger.getLogger(this.getClass());
 		
 		return super.findToGridList(listaServicio,where, " order by "+order,page,rows);	
 	}
+
+//	@Override
+//	public List<Servicio> refreshServicios(Servicio servicio, String urlAntiguo)
+//			throws Exception {
+//		// TODO Auto-generated method stub
+//		List<Servicio> listaServiciosEstado=servicioDAO.refreshServicios(servicio,urlAntiguo);
+//		return listaServiciosEstado;
+//	}
 }

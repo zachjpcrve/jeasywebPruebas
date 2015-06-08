@@ -1,5 +1,12 @@
 package pe.com.bbva.monitoreo.dao.impl;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ConnectException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -44,10 +51,10 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 			where = where + " and tipoAplicativo.id ="
 					+servicio.getTipoAplicativo().getId();
 		}
-		if(servicio.getEstado()!= null &&
-				   !servicio.getEstado().equals("")){
-					where = where +" and upper(estado) like upper('%" +
-					servicio.getEstado()+
+		if(servicio.getEstado_serv()!= null &&
+				   !servicio.getEstado_serv().equals("")){
+					where = where +" and upper(estado_serv) like upper('%" +
+					servicio.getEstado_serv()+
 							"%') ";
 		}
 		String orders = " order by fechaCreacion desc, url, tipoAmbiente.id, tipoAplicativo.id,nombre";
@@ -58,4 +65,34 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		return listaServicios;
 	}
 
+	@Override
+	public String testByUrl(Servicio servicio, String urlAntiguo) {
+		// TODO Auto-generated method stub
+		String patronExito = "Hi there, this is a Web service!";
+		String resultadoExito = "0";
+		StringBuilder stbResultadoRespuesta = new StringBuilder();
+		try{
+			URL urlMonitor = new URL(urlAntiguo);
+			URLConnection yc = urlMonitor.openConnection();
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					yc.getInputStream()));
+			String inputLine;
+			
+		while ((inputLine = in.readLine()) != null){
+			stbResultadoRespuesta.append(inputLine);
+		}
+		in.close();
+		resultadoExito = stbResultadoRespuesta.toString().contains(patronExito)?"1":resultadoExito;
+		}catch(ConnectException e){
+			resultadoExito = "0";
+			stbResultadoRespuesta.append(e.getMessage());
+		}catch(FileNotFoundException e){
+			resultadoExito = "0";
+			stbResultadoRespuesta.append(e.getMessage());
+		}catch(IOException e){
+			resultadoExito="1";
+			stbResultadoRespuesta.append(e.getMessage());
+		}
+		return resultadoExito;
+	}
 }

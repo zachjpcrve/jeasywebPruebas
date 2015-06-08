@@ -42,7 +42,7 @@
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
 							
 						<s:submit value="Actualizar" id="btnActualizar" theme="simple"
-							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="Actualizar"/> &nbsp;
+							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="refreshAllServicio"/> &nbsp;
 						</td>
 					</tr>
 				</table>
@@ -72,7 +72,7 @@
 		   		{name:'url',index:'url', width:350,align:"center"},
 		   		{name:'tipoAmbiente.descripcion',index:'tipoAmbiente.descripcion',width:120,align:"center"},
 		   		{name:'tipoAplicativo.descripcion',index:'tipoAplicativo.descripcion',width:120,align:"center"},
-		   		{name:'estado',index:'estado', width:50,align:"center"},
+		   		{name:'estado_serv',index:'estado_serv', width:50,align:"center"},
 		   		{name:'act',index:'act',align:"left",width:100,sortable:false,title:false}
 		   	],
 		   	rowNum:10,
@@ -104,17 +104,15 @@
 		
 				for(var i=0;i < ids.length;i++){
 					var cl = ids[i];
-					var estado = $(this).getCell(cl, 'estado');       		
+					var estado_serv = $(this).getCell(cl, 'estado_serv');       		
 					var actions ='&nbsp;&nbsp;'; 
 					 actions += actionIcon('updateServicio.do','idServicio='+cl,'Editar Servicio','images/icons/editar.png'); 
 					 actions +='&nbsp;';
-					 if(estado !='0' ){
-						 actions += actionIconConfirm('deleteServicio.do','idServicio='+cl,'Eliminar Servicio','images/icons/eliminar.png','Esta seguro de anular el servicio');
-					 } 
+					 actions += actionIcon('refreshServicio.do','idServicio='+cl,'Actualizar Estado Servicio','images/icons/actualizar.png');
 					 $(this).jqGrid('setRowData',ids[i],{act:actions});
 				}	
-				//dataTable_estado : concatenacion de id de Grid y el id de columna
-				paintEstado('dataTable_estado');
+				//dataTable_estado_serv : concatenacion de id de Grid y el id de columna
+				paintEstado('dataTable_estado_serv');
 			}
 		});
 	});

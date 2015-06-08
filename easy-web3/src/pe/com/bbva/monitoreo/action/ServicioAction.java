@@ -41,6 +41,7 @@ public class ServicioAction extends GenericAction{
 	private ServicioBO servicioBO;
 	
 	private Long idServicio;
+	private String urlServicio;
 	private String urlAntiguo;
 	private Servicio servicio;
 	private Servicio servicioBuscar;
@@ -50,6 +51,7 @@ public class ServicioAction extends GenericAction{
 
 	public void cleanForm() {
 		setIdServicio(null);
+		setUrlServicio("");
 		setUrlAntiguo("");
 	}
 	
@@ -83,7 +85,32 @@ public class ServicioAction extends GenericAction{
 	public String newForm() {
 		return "viewFormServicio";
 	}
-
+	
+	@Action(value="refreshAllServicio")
+	public String refreshAll(){
+		
+		return "viewListServicio";
+	}
+	
+	@Action(value="refreshServicio")
+	public String refresh(){
+		String mensaje = "Actualizando estado de servicio";
+		try {
+			servicio = servicioBO.findById(idServicio);
+			urlAntiguo = servicio.getUrl();
+			servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+			servicioBO.save(servicio, urlAntiguo);
+			addActionMessage(mensaje);
+			cleanForm();
+		} catch (BOException e) {
+			addActionError(e.getMessage());
+			logger.error(StringUtil.getStackTrace(e));
+		} catch (Exception e) {
+			logger.error(StringUtil.getStackTrace(e));
+		}
+		return "viewListServicio";
+	}
+	
 	@Action(value="updateServicio")
 	public String updateForm() {
 		try {
@@ -163,7 +190,15 @@ public class ServicioAction extends GenericAction{
 	public void setUrlAntiguo(String urlAntiguo) {
 		this.urlAntiguo = urlAntiguo;
 	}
-
+	
+	public String getUrlServicio(){
+		return urlServicio;
+	}
+	
+	public void setUrlServicio(String urlServicio){
+		this.urlServicio=urlServicio;
+	}
+	
 	public Servicio getServicio() {
 		return servicio;
 	}
