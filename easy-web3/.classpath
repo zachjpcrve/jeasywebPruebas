@@ -9,5 +9,9 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/USUARIO/Desktop/Nueva carpeta/lib/primefaces-4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USUARIO/Desktop/Nueva carpeta/lib/jstl-api-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USUARIO/Desktop/Nueva carpeta/lib/jstl-impl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USUARIO/Desktop/Nueva carpeta/javax.faces.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

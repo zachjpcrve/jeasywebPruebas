@@ -131,6 +131,17 @@
 		});
     }
     
+    function paintEstado_serv(gridColumn){
+    	$("td[aria-describedby='"+gridColumn+"']").each(function(){
+    		var _html_serv=$(this).html();
+    		if(_html_serv=='&nbsp;' || _html_serv=='1'){
+    			$(this).html('<img border="0" alt="OK" title="OK" src="images/icons/verde2.png">');
+    		}else{
+    			$(this).html('<img border="0" alt="ERROR" title="ERROR" src="images/icons/rojo2.png">');	
+    		}
+    	});
+    }
+    
     //Usado en los cuadros de asignaciones
     	function syncronizedValueNumeric(idText,idTextFixed){
 	

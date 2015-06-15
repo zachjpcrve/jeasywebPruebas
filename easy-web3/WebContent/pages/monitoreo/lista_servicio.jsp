@@ -39,7 +39,7 @@
 						<s:submit value="Nuevo Servicio" id="btnNuevo" theme="simple"
 							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="newServicio" /> &nbsp;
 						<input type="button" value="Limpiar" id="btnLimpiar" 
-							class="ui-button ui-widget ui-state-default ui-corner-all"/>
+							class="ui-button ui-widget ui-state-default ui-corner-all"/>&nbsp;
 							
 						<s:submit value="Actualizar" id="btnActualizar" theme="simple"
 							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="refreshAllServicio"/> &nbsp;
@@ -65,15 +65,21 @@
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
 			datatype: "json",
-		   	colNames:['Id','Nombre','Url','Ambiente','Aplicativo','Estado','Acciones'],
+		   	colNames:['','Id','Nombre','Url','Ambiente','Aplicativo','Estado','Acciones'],
 		   	colModel:[
+		   	    {name:'selected',index:'selected',width:30,
+// 					editable:true,edittype:"select",editoptions:{value:"True:False"},
+		   	    	formatter:"checkbox",
+		   	    	formatoptions:{disabled:false},
+					align:"center"
+		   	    },
 		   		{name:'id',index:'id',hidden:true},
 		   		{name:'nombre',index:'nombre', width:120,align:"center"},
 		   		{name:'url',index:'url', width:350,align:"center"},
 		   		{name:'tipoAmbiente.descripcion',index:'tipoAmbiente.descripcion',width:120,align:"center"},
 		   		{name:'tipoAplicativo.descripcion',index:'tipoAplicativo.descripcion',width:120,align:"center"},
 		   		{name:'estado_serv',index:'estado_serv', width:50,align:"center"},
-		   		{name:'act',index:'act',align:"left",width:100,sortable:false,title:false}
+		   		{name:'act',index:'act',align:"left",width:150,sortable:false,title:false}
 		   	],
 		   	rowNum:10,
 		   	rowList:[10,25,50],
@@ -97,6 +103,11 @@
 				
 		   }
 		   ,
+		   gridObtenerId:function(){
+			   var servicio=jQuery('#dataTable').jqGrid('getRowData',rowid);
+			   <% %>
+		   }
+		   ,
 			gridComplete: function(){
 			  
 		
@@ -109,10 +120,14 @@
 					 actions += actionIcon('updateServicio.do','idServicio='+cl,'Editar Servicio','images/icons/editar.png'); 
 					 actions +='&nbsp;';
 					 actions += actionIcon('refreshServicio.do','idServicio='+cl,'Actualizar Estado Servicio','images/icons/actualizar.png');
+// 					 if(estado_serv!='0'){
+					 actions +='&nbsp;';
+					 actions +=actionIcon('mensajeServicio.do','idServicio='+cl,'Mensaje de Error','images/icons/alerta.png');
+// 					 }
 					 $(this).jqGrid('setRowData',ids[i],{act:actions});
 				}	
 				//dataTable_estado_serv : concatenacion de id de Grid y el id de columna
-				paintEstado('dataTable_estado_serv');
+				paintEstado_serv('dataTable_estado_serv');
 			}
 		});
 	});

@@ -10,4 +10,5 @@ import pe.com.bbva.monitoreo.domain.Servicio;
 public interface ServicioDAO {
 	public List<Servicio> findServicios(Servicio servicio) throws Exception,DAOException;
 	public String testByUrl(Servicio servicio, String urlAntiguo);
+	public String MensajetestByUrl(Servicio servicio, String urlAntiguo);
 }

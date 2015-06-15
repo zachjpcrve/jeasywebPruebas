@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.primefaces.context.RequestContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -62,6 +65,19 @@ public class ServicioAction extends GenericAction{
 		return "viewListServicio";
 	}
 	
+	@Action(value="mensajeServicio")
+	public String message(){
+		try {
+			servicio = servicioBO.findById(idServicio);
+			urlAntiguo = servicio.getUrl();
+			addActionError(servicioBO.mensajetestByUrl(servicio, urlServicio));
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.error("ERROR: "+e.toString());
+		}
+		return "viewListServicio";
+	}
+	
 	@Action(value="findAllServicio")
 	public String findAll() {
 		try {
@@ -101,7 +117,6 @@ public class ServicioAction extends GenericAction{
 			servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
 			servicioBO.save(servicio, urlAntiguo);
 			addActionMessage(mensaje);
-			cleanForm();
 		} catch (BOException e) {
 			addActionError(e.getMessage());
 			logger.error(StringUtil.getStackTrace(e));

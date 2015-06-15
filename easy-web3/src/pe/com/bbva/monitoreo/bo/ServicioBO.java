@@ -16,4 +16,6 @@ public interface ServicioBO {
 	public void deleteLog(Class servicio, Long id)throws BOException;
 	public Grid<Servicio> findToGrid(Servicio servicio,String order, int page, int rows)throws Exception;
 	public String testByUrl(Servicio servicio, String urlServicio)throws BOException,DAOException;
+	public String mensajetestByUrl(Servicio servicio, String urlServicio)throws BOException,DAOException;
+	public void mensaje(String mensajetestByUrl);
 }

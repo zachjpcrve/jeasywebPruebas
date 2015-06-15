@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,6 @@ import pe.com.bbva.core.exceptions.DAOException;
 import pe.com.bbva.monitoreo.bo.ServicioBO;
 import pe.com.bbva.monitoreo.dao.ServicioDAO;
 import pe.com.bbva.monitoreo.domain.Servicio;
-import pe.com.bbva.seguridad.domain.Modulo;
-import pe.com.bbva.util.Constantes;
 
 @Service("servicioBO")
 public class ServicioBOImpl extends GenericBOImpl<Servicio> implements ServicioBO{
@@ -81,6 +81,19 @@ private Logger logger = Logger.getLogger(this.getClass());
 		List<Servicio> listaServicio= findServicios(servicio);
 		
 		return super.findToGridList(listaServicio,where, " order by "+order,page,rows);	
+	}
+
+	@Override
+	public String mensajetestByUrl(Servicio servicio,String urlAntiguo) {
+		// TODO Auto-generated method stub
+		String mensajetestByUrl=servicioDAO.MensajetestByUrl(servicio,urlAntiguo);
+		return mensajetestByUrl;
+	}
+
+	@Override
+	public void mensaje(String mensajetestByUrl) {
+		// TODO Auto-generated method stub
+		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Ya funciono"));
 	}
 
 //	@Override
