@@ -1,4 +1,5 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@page import= "pe.com.bbva.monitoreo.action.ServicioAction" %>
 <s:form action="findAllServicio" id="buscarServiciosForm" theme="simple">
 	<table width="100%">
 		<tr>
@@ -42,7 +43,9 @@
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>&nbsp;
 							
 						<s:submit value="Actualizar" id="btnActualizar" theme="simple"
-							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="refreshAllServicio"/> &nbsp;
+							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="refreshAllServicio"
+							/> &nbsp;
+						<input type="button" value="Prueba" id="btnPrueba"/> 
 						</td>
 					</tr>
 				</table>
@@ -61,18 +64,15 @@
 	   	$("#btnLimpiar").click(function(){
     			limpiarForm();
     	});
+	   	$("#btnPrueba").click(function(){
+			SeleccionarIds();
+		});
     	
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
 			datatype: "json",
-		   	colNames:['','Id','Nombre','Url','Ambiente','Aplicativo','Estado','Acciones'],
+		   	colNames:['Id','Nombre','Url','Ambiente','Aplicativo','Estado','Acciones'],
 		   	colModel:[
-		   	    {name:'selected',index:'selected',width:30,
-// 					editable:true,edittype:"select",editoptions:{value:"True:False"},
-		   	    	formatter:"checkbox",
-		   	    	formatoptions:{disabled:false},
-					align:"center"
-		   	    },
 		   		{name:'id',index:'id',hidden:true},
 		   		{name:'nombre',index:'nombre', width:120,align:"center"},
 		   		{name:'url',index:'url', width:350,align:"center"},
@@ -88,6 +88,8 @@
 		    viewrecords: true,
 		    sortorder: "desc",
 		    caption:"Lista de Servicios",
+		    recordpos:'left',
+		    multiselect:true, 
 		    jsonReader : {
 		      root:"dataModel",
 		      repeatitems: false
@@ -101,11 +103,6 @@
 			 		$(this).jqGrid('setGridParam',{url:_url,page:_page});
 				}
 				
-		   }
-		   ,
-		   gridObtenerId:function(){
-			   var servicio=jQuery('#dataTable').jqGrid('getRowData',rowid);
-			   <% %>
 		   }
 		   ,
 			gridComplete: function(){
@@ -130,8 +127,19 @@
 				paintEstado_serv('dataTable_estado_serv');
 			}
 		});
+//     	JQuery("#dataTable").jqGrid('navGrid','#tablePager',{add:false,del:false,edit:false,position:'rigth'});
 	});
-	
+	function SeleccionarIds(){
+		var s;
+		var arrayID=[];
+		var myJSN="";
+		s=jQuery("#dataTable").jqGrid('getGridParam','selarrrow');
+		for (var i = 0; i < s.length; i++) {
+			alert(s[i]);
+		}
+		
+		alert(s);
+	};
 	function limpiarForm(){
 		$("#cmbAmbiente").val("");
 		$("#cmbAplicativo").val("");
