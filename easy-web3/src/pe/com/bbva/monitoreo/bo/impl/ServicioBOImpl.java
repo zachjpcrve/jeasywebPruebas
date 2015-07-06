@@ -61,6 +61,9 @@ private Logger logger = Logger.getLogger(this.getClass());
 		return estadotestByUrl;
 	}
 	
+	public List<String> Listaids(List<String> listaIds){
+		return listaIds;
+	}
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void save(Servicio servicio , 
 					 String urlAntiguo) throws BOException, DAOException {

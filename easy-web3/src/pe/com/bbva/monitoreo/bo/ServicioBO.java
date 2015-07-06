@@ -18,4 +18,5 @@ public interface ServicioBO {
 	public String testByUrl(Servicio servicio, String urlServicio)throws BOException,DAOException;
 	public String mensajetestByUrl(Servicio servicio, String urlServicio)throws BOException,DAOException;
 	public void mensaje(String mensajetestByUrl);
+	public List<String> Listaids(List<String> listaIds);
 }

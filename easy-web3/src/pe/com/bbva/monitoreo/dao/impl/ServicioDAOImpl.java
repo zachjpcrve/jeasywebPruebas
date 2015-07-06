@@ -64,6 +64,11 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		List<Servicio> listaServicios = super.executeQuery(Servicio.class, where, orders);
 		return listaServicios;
 	}
+	
+	@Override
+	public List<String> findIds(List<String> listaIds){
+		return listaIds;
+	}
 
 	@Override
 	public String testByUrl(Servicio servicio, String urlAntiguo) {

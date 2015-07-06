@@ -47,6 +47,13 @@
 		</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
+  	<servlet>
+  		<description>
+  		</description>
+  		<display-name>ArrayIdsServlet</display-name>
+  		<servlet-name>ArrayIdsServlet</servlet-name>
+  		<servlet-class>pe.com.bbva.monitoreo.action.ArrayIdsServlet</servlet-class>
+  	</servlet>
 
   	<!-- Servlet Mapping, not called directly -->
   	
@@ -59,6 +66,10 @@
 		<servlet-name>ConnectorServlet</servlet-name>
 		<url-pattern>/fckeditor/editor/filemanager/connectors/*</url-pattern>
 	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>ArrayIdsServlet</servlet-name>
+  		<url-pattern>/ArrayIdsServlet</url-pattern>
+  	</servlet-mapping>
 	<session-config>
 		<session-timeout>-1</session-timeout>
 	</session-config>

@@ -1,5 +1,4 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
-<%@page import= "pe.com.bbva.monitoreo.action.ServicioAction" %>
 <s:form action="findAllServicio" id="buscarServiciosForm" theme="simple">
 	<table width="100%">
 		<tr>
@@ -42,10 +41,9 @@
 						<input type="button" value="Limpiar" id="btnLimpiar" 
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>&nbsp;
 							
-						<s:submit value="Actualizar" id="btnActualizar" theme="simple"
-							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="refreshAllServicio"
-							/> &nbsp;
-						<input type="button" value="Prueba" id="btnPrueba"/> 
+						<input type="button" value="Actualizar" id="btnActualizar" 
+							class="ui-button ui-widget ui-state-default ui-corner-all"/>
+						&nbsp;
 						</td>
 					</tr>
 				</table>
@@ -64,10 +62,9 @@
 	   	$("#btnLimpiar").click(function(){
     			limpiarForm();
     	});
-	   	$("#btnPrueba").click(function(){
-			SeleccionarIds();
-		});
-    	
+	   	$("#btnActualizar").click(function(){
+	 		SeleccionarIds();
+	 	});
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
 			datatype: "json",
@@ -126,20 +123,28 @@
 				//dataTable_estado_serv : concatenacion de id de Grid y el id de columna
 				paintEstado_serv('dataTable_estado_serv');
 			}
-		});
 //     	JQuery("#dataTable").jqGrid('navGrid','#tablePager',{add:false,del:false,edit:false,position:'rigth'});
 	});
+	});
 	function SeleccionarIds(){
-		var s;
-		var arrayID=[];
-		var myJSN="";
-		s=jQuery("#dataTable").jqGrid('getGridParam','selarrrow');
-		for (var i = 0; i < s.length; i++) {
-			alert(s[i]);
-		}
-		
-		alert(s);
-	};
+		   var ids;
+		   var Id;
+			ids=jQuery("#dataTable").jqGrid('getGridParam','selarrrow');
+			for (var i = 0; i < ids.length; i++) {
+				Id=ids[i];
+				$.ajax({
+					url:"refreshServicio.do?idServicio="+Id,
+					idServicio:Id,
+					type:"GET",
+					async:false,
+					cache:false,
+					success:function(data){
+						alert("Actualizado");
+						window.location='initMonitoreo.do'
+					}
+				});
+			}
+	}
 	function limpiarForm(){
 		$("#cmbAmbiente").val("");
 		$("#cmbAplicativo").val("");

@@ -69,7 +69,7 @@
 									<tr>
 										<td class="label">Estado:</td>
 										<td><s:select list="#{'1':'ACTIVO','0':'INACTIVO'}" theme="simple" 
-										name="servicio.estado" id="cmbEstado"/></td>
+										name="servicio.estado_serv" id="cmbEstado"/></td>
 									</tr>
 									<tr>
 										<td class="label">Tipo Aplicativo:</td>

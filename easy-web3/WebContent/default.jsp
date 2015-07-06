@@ -109,6 +109,18 @@
 		return btn;
 	}
 	
+	function actionAct(action,data){
+		var _confirm=false;
+		return paintActionAct(action,data,_confirm,'');
+	}
+	function actionActConfirm(action,data){
+		var _confirm=true;
+		return paintActionAct(action,data,_confirm,'');
+	}
+	
+	function paintActionAct(action,data,_confirm,msg){
+		return window.onload=redirect(action+"?"+data,_confirm,'');
+	}
 	function redirect(url,_confirm,msg){
 	    if(_confirm){
 	    	if(confirm(msg)){
@@ -117,7 +129,7 @@
 	    }else{
 	    	window.location=url;
 	    }
-    	
+    	return url;
     }
     
     function paintEstado(gridColumn){
