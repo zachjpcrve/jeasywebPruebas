@@ -66,9 +66,6 @@
     	});
 	   	$("#btnActualizar").click(function(){
 	   		SeleccionarIds();
-	   		setTimeOut(function(){
-	   			location.reload(true);
-	   		},22000);
 	   	});
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
@@ -141,13 +138,13 @@
 	}
 	function EnviarAjax(Id){
 		$.ajax({
-			url:"refreshAllServicio.do?idServicio="+Id,
+			url:"refreshServicioSelected.do?idServicio="+Id,
 			idServicio:Id,
 			type:"GET",
 			async:false,
 			cache:false,
 			success:function(data){
-				alert("actualizando! "+Id);
+				alert(Id);
 			}
 		});
 	}

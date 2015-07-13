@@ -98,6 +98,29 @@ public class ServicioAction extends GenericAction{
 		return "viewFormServicio";
 	}
 	
+	@Action(value="refreshServicioSelected")
+	public String refreshSeleccionados(){
+		Thread t=new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					servicio = servicioBO.findById(idServicio);
+					urlAntiguo = servicio.getUrl();
+					servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+					servicioBO.save(servicio, urlAntiguo);
+				} catch (BOException e) {
+					addActionError(e.getMessage());
+					logger.error(StringUtil.getStackTrace(e));
+				} catch (Exception e) {
+					logger.error(StringUtil.getStackTrace(e));
+				}
+			}
+			});
+		t.start();
+		return "viewListServicio";
+	}
+	
 	@Action(value="refreshServicio")
 	public String refresh(){
 		String mensaje = "Actualizando estado de servicio";
