@@ -1,4 +1,7 @@
+<%@page import="java.util.ArrayList"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@page import="java.util.*" %>
+<%@page import="pe.com.bbva.monitoreo.action.ServicioAction" %>
 <s:form action="findAllServicio" id="buscarServiciosForm" theme="simple">
 	<table width="100%">
 		<tr>
@@ -39,12 +42,11 @@
 						<s:submit value="Nuevo Servicio" id="btnNuevo" theme="simple"
 							cssClass="ui-button ui-widget ui-state-default ui-corner-all" action="newServicio" /> &nbsp;
 						<input type="button" value="Limpiar" id="btnLimpiar" 
-							class="ui-button ui-widget ui-state-default ui-corner-all"/>&nbsp;
-							
-						<input type="button" value="Actualizar" id="btnActualizar" 
+							class="ui-button ui-widget ui-state-default ui-corner-all"/>
+							&nbsp;
+						<input type="button" value="Actualizar" id="btnActualizar"
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
 						&nbsp;
-						</td>
 					</tr>
 				</table>
 			</td>
@@ -56,15 +58,18 @@
 	<div id="tablePager"></div>
 </div>
 <script language="JavaScript" type="text/javascript">
-	$(document).ready(function() {
+	$(document).ready(function(){
    	   	$("thead tr th").attr("class","standardTable_Header_footer");
 	   	$("caption").attr("class","standardTable_Header_footer caption");
 	   	$("#btnLimpiar").click(function(){
-    			limpiarForm();
+    		limpiarForm();
     	});
 	   	$("#btnActualizar").click(function(){
-	 		SeleccionarIds();
-	 	});
+	   		SeleccionarIds();
+	   		setTimeOut(function(){
+	   			location.reload(true);
+	   		},22000);
+	   	});
     	jQuery("#dataTable").jqGrid({
 		   	url:'./findAllServicio.do',
 			datatype: "json",
@@ -99,14 +104,11 @@
 					
 			 		$(this).jqGrid('setGridParam',{url:_url,page:_page});
 				}
-				
 		   }
 		   ,
 			gridComplete: function(){
-			  
-		
 				var ids = $(this).jqGrid('getDataIDs');
-		
+				var index=$("#dataTable").index(this);
 				for(var i=0;i < ids.length;i++){
 					var cl = ids[i];
 					var estado_serv = $(this).getCell(cl, 'estado_serv');       		
@@ -114,12 +116,14 @@
 					 actions += actionIcon('updateServicio.do','idServicio='+cl,'Editar Servicio','images/icons/editar.png'); 
 					 actions +='&nbsp;';
 					 actions += actionIcon('refreshServicio.do','idServicio='+cl,'Actualizar Estado Servicio','images/icons/actualizar.png');
-// 					 if(estado_serv!='0'){
+					 if(estado_serv!='1'){
+					 	actions +='&nbsp;';
+					 	actions +=actionIcon('mensajeServicio.do','idServicio='+cl,'Mensaje de Error','images/icons/alerta.png');
+					 }
 					 actions +='&nbsp;';
-					 actions +=actionIcon('mensajeServicio.do','idServicio='+cl,'Mensaje de Error','images/icons/alerta.png');
-// 					 }
+					 actions += actionIcon('deleteServicio.do','idServicio='+cl,'Eliminar Servicio','images/icons/eliminar.png');
 					 $(this).jqGrid('setRowData',ids[i],{act:actions});
-				}	
+				}
 				//dataTable_estado_serv : concatenacion de id de Grid y el id de columna
 				paintEstado_serv('dataTable_estado_serv');
 			}
@@ -127,23 +131,25 @@
 	});
 	});
 	function SeleccionarIds(){
-		   var ids;
-		   var Id;
+		   	var ids=[];
+		   	var Id;
 			ids=jQuery("#dataTable").jqGrid('getGridParam','selarrrow');
-			for (var i = 0; i < ids.length; i++) {
+			for(var i=0; i<ids.length;i++){
 				Id=ids[i];
-				$.ajax({
-					url:"refreshServicio.do?idServicio="+Id,
-					idServicio:Id,
-					type:"GET",
-					async:false,
-					cache:false,
-					success:function(data){
-						alert("Actualizado");
-						window.location='initMonitoreo.do'
-					}
-				});
+				EnviarAjax(Id);
 			}
+	}
+	function EnviarAjax(Id){
+		$.ajax({
+			url:"refreshAllServicio.do?idServicio="+Id,
+			idServicio:Id,
+			type:"GET",
+			async:false,
+			cache:false,
+			success:function(data){
+				alert("actualizando! "+Id);
+			}
+		});
 	}
 	function limpiarForm(){
 		$("#cmbAmbiente").val("");

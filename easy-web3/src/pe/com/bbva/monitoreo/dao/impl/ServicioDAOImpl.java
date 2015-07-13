@@ -98,37 +98,7 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 			resultadoExito="1";
 			stbResultadoRespuesta.append(e.getMessage());
 		}
+		servicio.setPat_Exito(stbResultadoRespuesta.toString());
 		return resultadoExito;
-	}
-
-	@Override
-	public String MensajetestByUrl(Servicio servicio, String urlAntiguo) {
-		// TODO Auto-generated method stub
-		String patronExito = "Hi there, this is a Web service!";
-		String resultadoExito = "0";
-		StringBuilder stbResultadoRespuesta = new StringBuilder();
-		try{
-			URL urlMonitor = new URL(urlAntiguo);
-			URLConnection yc = urlMonitor.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					yc.getInputStream()));
-			String inputLine;
-			
-		while ((inputLine = in.readLine()) != null){
-			stbResultadoRespuesta.append(inputLine);
-		}
-		in.close();
-		resultadoExito = stbResultadoRespuesta.toString().contains(patronExito)?"1":resultadoExito;
-		}catch(ConnectException e){
-			resultadoExito = "0";
-			stbResultadoRespuesta.append(e.getMessage());
-		}catch(FileNotFoundException e){
-			resultadoExito = "0";
-			stbResultadoRespuesta.append(e.getMessage());
-		}catch(IOException e){
-			resultadoExito="1";
-			stbResultadoRespuesta.append(e.getMessage());
-		}
-		return stbResultadoRespuesta.toString();
 	}
 }

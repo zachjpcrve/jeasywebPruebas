@@ -66,10 +66,16 @@
 										cssClass="validate[required,custom[onlyLetterNumbereneacentoesp]]"/>
 										</td>
 									</tr>
+<!-- 								<tr> -->
+<!-- 										<td class="label">Estado:</td> -->
+<%-- 										<td><s:select list="#{'1':'ACTIVO','0':'INACTIVO'}" theme="simple"  --%>
+<%-- 										name="servicio.estado_serv" id="cmbEstadoServ"/></td> --%>
+<!-- 								</tr> -->
 									<tr>
-										<td class="label">Estado:</td>
-										<td><s:select list="#{'1':'ACTIVO','0':'INACTIVO'}" theme="simple" 
-										name="servicio.estado_serv" id="cmbEstado"/></td>
+										<td class="label">Estado</td>
+										<td><s:select list="#{'1':'ACTIVO','0':'INACTIVO'}" theme="simple"
+	 										name="servicio.estado" id="cmbEstado"/> 
+										</td>
 									</tr>
 									<tr>
 										<td class="label">Tipo Aplicativo:</td>

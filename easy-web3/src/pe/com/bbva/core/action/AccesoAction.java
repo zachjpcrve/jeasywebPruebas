@@ -64,7 +64,6 @@ public class AccesoAction extends GenericAction{
 	  @Action(value="acceso")
 	  public String acceso() throws Exception{
 		String forward = "";
-		
 		  
 		logger.info("INICIO execute");
 		logger.info("inicio servlet");

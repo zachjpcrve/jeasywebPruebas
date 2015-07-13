@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -37,26 +36,15 @@ public class ServicioAction extends GenericAction{
 	private static final long serialVersionUID = 1L;
 
 	Logger logger=Logger.getLogger(this.getClass());
-	ArrayIdsServlet as=new ArrayIdsServlet();
 	@Resource
 	private ServicioBO servicioBO;
-	
 	private Long idServicio;
 	private String urlServicio;
 	private String urlAntiguo;
 	private Servicio servicio;
 	private Servicio servicioBuscar;
 	private List<Servicio> listaServicios;
-	private List<Long> listaIds=new ArrayList<Long>();
-	
-	public List<Long> getListaIds() {
-		return listaIds;
-	}
-
-	public void setListaIds(List<Long> listaIds) {
-		this.listaIds = listaIds;
-	}
-
+	private List<Long> listaIds= new ArrayList<Long>();
 	private List<SelectItem> listaTiposAmbiente = new ArrayList<SelectItem>();
 	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
 
@@ -77,8 +65,8 @@ public class ServicioAction extends GenericAction{
 	public String message(){
 		try {
 			servicio = servicioBO.findById(idServicio);
-			urlAntiguo = servicio.getUrl();
-			addActionError(servicioBO.mensajetestByUrl(servicio, urlServicio));
+			addActionError(servicio.getPat_Exito());
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.error("ERROR: "+e.toString());
@@ -108,24 +96,6 @@ public class ServicioAction extends GenericAction{
 	@Action(value="newServicio")
 	public String newForm() {
 		return "viewFormServicio";
-	}
-	
-	@Action(value="refreshAllServicio")
-	public String refreshAll(){
-//		try {
-//			for (int i = 0; i < listaIds.size(); i++) {
-//				servicio = servicioBO.findById(getListaIds().get(i));
-//				urlAntiguo = servicio.getUrl();
-//				servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
-//				servicioBO.save(servicio, urlAntiguo);
-//			}
-//		} catch (BOException e) {
-//			addActionError(e.getMessage());
-//			logger.error(StringUtil.getStackTrace(e));
-//		} catch (Exception e) {
-//			logger.error(StringUtil.getStackTrace(e));
-//		}
-		return "viewListServicio";
 	}
 	
 	@Action(value="refreshServicio")
@@ -187,6 +157,8 @@ public class ServicioAction extends GenericAction{
 		try {
 			UsuarioSession usuarioSession = (UsuarioSession) getObjectSession(Constantes.USUARIO_SESSION);
 			setCamposAuditoria(servicio, usuarioSession);
+			urlAntiguo=servicio.getUrl();
+			servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
 			servicioBO.save(servicio, urlAntiguo);
 			listaServicios = servicioBO.findServicios(new Servicio());
 			addActionMessage(mensaje);
@@ -201,7 +173,6 @@ public class ServicioAction extends GenericAction{
 		}
 		return forward;
 	}
-
 	public ServicioBO getServicioBO() {
 		return servicioBO;
 	}
@@ -281,4 +252,12 @@ public class ServicioAction extends GenericAction{
 	public void setListaTiposAplicativo(List<SelectItem> listaTiposAplicativo) {
 		this.listaTiposAplicativo = listaTiposAplicativo;
 	}
+	public List<Long> getListaIds() {
+		return listaIds;
+	}
+
+	public void setListaIds(List<Long> listaIds) {
+		this.listaIds = listaIds;
+	}
+	
 }

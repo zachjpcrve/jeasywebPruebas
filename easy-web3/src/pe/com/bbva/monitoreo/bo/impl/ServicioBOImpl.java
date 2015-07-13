@@ -85,25 +85,4 @@ private Logger logger = Logger.getLogger(this.getClass());
 		
 		return super.findToGridList(listaServicio,where, " order by "+order,page,rows);	
 	}
-
-	@Override
-	public String mensajetestByUrl(Servicio servicio,String urlAntiguo) {
-		// TODO Auto-generated method stub
-		String mensajetestByUrl=servicioDAO.MensajetestByUrl(servicio,urlAntiguo);
-		return mensajetestByUrl;
-	}
-
-	@Override
-	public void mensaje(String mensajetestByUrl) {
-		// TODO Auto-generated method stub
-		 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Ya funciono"));
-	}
-
-//	@Override
-//	public List<Servicio> refreshServicios(Servicio servicio, String urlAntiguo)
-//			throws Exception {
-//		// TODO Auto-generated method stub
-//		List<Servicio> listaServiciosEstado=servicioDAO.refreshServicios(servicio,urlAntiguo);
-//		return listaServiciosEstado;
-//	}
 }
