@@ -1,9 +1,19 @@
 package pe.com.bbva.monitoreo.action;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.Response;
+
+import net.fckeditor.response.GetResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -47,6 +57,8 @@ public class ServicioAction extends GenericAction{
 	private List<Long> listaIds= new ArrayList<Long>();
 	private List<SelectItem> listaTiposAmbiente = new ArrayList<SelectItem>();
 	private List<SelectItem> listaTiposAplicativo= new ArrayList<SelectItem>();
+	private long tiempoEjecucion;
+	private boolean finalizoproceso=false;
 
 	public void cleanForm() {
 		setIdServicio(null);
@@ -99,26 +111,20 @@ public class ServicioAction extends GenericAction{
 	}
 	
 	@Action(value="refreshServicioSelected")
-	public String refreshSeleccionados(){
-		Thread t=new Thread(new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				try {
-					servicio = servicioBO.findById(idServicio);
-					urlAntiguo = servicio.getUrl();
-					servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
-					servicioBO.save(servicio, urlAntiguo);
-				} catch (BOException e) {
-					addActionError(e.getMessage());
-					logger.error(StringUtil.getStackTrace(e));
-				} catch (Exception e) {
-					logger.error(StringUtil.getStackTrace(e));
-				}
-			}
-			});
-		t.start();
-		return "viewListServicio";
+	public void refreshSeleccionados() throws IOException{
+					// TODO Auto-generated method stub
+					try {
+						servicio = servicioBO.findById(idServicio);
+						urlAntiguo = servicio.getUrl();
+						servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+						servicioBO.save(servicio, urlAntiguo);
+						Thread.sleep(0);
+					} catch (BOException e) {
+						addActionError(e.getMessage());
+						logger.error(StringUtil.getStackTrace(e));
+					} catch (Exception e) {
+						logger.error(StringUtil.getStackTrace(e));
+					}
 	}
 	
 	@Action(value="refreshServicio")
@@ -195,6 +201,11 @@ public class ServicioAction extends GenericAction{
 			logger.error(StringUtil.getStackTrace(e));
 		}
 		return forward;
+	}
+	
+	@Action("obtenerLista")
+	public void Obtener(){
+		listaIds.add(idServicio);
 	}
 	public ServicioBO getServicioBO() {
 		return servicioBO;
@@ -283,4 +294,29 @@ public class ServicioAction extends GenericAction{
 		this.listaIds = listaIds;
 	}
 	
+	public long TiempoMayor(){
+		long mayor=-1;
+		for (int i = 0; i < listaIds.size(); i++) {
+			if(mayor<getListaIds().get(i)){
+				mayor=getListaIds().get(i);
+			}
+		}
+		return mayor;
+	}
+
+	public long getTiempoEjecucion() {
+		return tiempoEjecucion;
+	}
+
+	public void setTiempoEjecucion(long tiempoEjecucion) {
+		this.tiempoEjecucion = tiempoEjecucion;
+	}
+
+	public boolean isFinalizoproceso() {
+		return finalizoproceso;
+	}
+
+	public void setFinalizoproceso(boolean finalizoproceso) {
+		this.finalizoproceso = finalizoproceso;
+	}
 }

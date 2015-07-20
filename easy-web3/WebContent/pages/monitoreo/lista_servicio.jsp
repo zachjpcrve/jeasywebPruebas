@@ -1,7 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%@page import="java.util.*" %>
-<%@page import="pe.com.bbva.monitoreo.action.ServicioAction" %>
 <s:form action="findAllServicio" id="buscarServiciosForm" theme="simple">
 	<table width="100%">
 		<tr>
@@ -44,8 +43,9 @@
 						<input type="button" value="Limpiar" id="btnLimpiar" 
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
 							&nbsp;
-						<input type="button" value="Actualizar" id="btnActualizar"
+						<input type="button" value="Actualizar" id="btnActualizar" 
 							class="ui-button ui-widget ui-state-default ui-corner-all"/>
+						<input type="hidden" value="" name="valor"> 
 						&nbsp;
 					</tr>
 				</table>
@@ -57,6 +57,7 @@
 	<table id="dataTable" width="100%"></table>
 	<div id="tablePager"></div>
 </div>
+<script type="text/javascript" src="js/Concurrent.Thread.js"></script>
 <script language="JavaScript" type="text/javascript">
 	$(document).ready(function(){
    	   	$("thead tr th").attr("class","standardTable_Header_footer");
@@ -105,7 +106,6 @@
 		   ,
 			gridComplete: function(){
 				var ids = $(this).jqGrid('getDataIDs');
-				var index=$("#dataTable").index(this);
 				for(var i=0;i < ids.length;i++){
 					var cl = ids[i];
 					var estado_serv = $(this).getCell(cl, 'estado_serv');       		
@@ -129,24 +129,25 @@
 	});
 	function SeleccionarIds(){
 		   	var ids=[];
-		   	var Id;
+		   	var cant=0;
 			ids=jQuery("#dataTable").jqGrid('getGridParam','selarrrow');
 			for(var i=0; i<ids.length;i++){
 				Id=ids[i];
-				EnviarAjax(Id);
+				intervalID=setTimeout(EnviarAjax(Id), 0);
+				clearTimeout(intervalID);
 			}
 	}
 	function EnviarAjax(Id){
-		$.ajax({
-			url:"refreshServicioSelected.do?idServicio="+Id,
-			idServicio:Id,
-			type:"GET",
-			async:false,
-			cache:false,
-			success:function(data){
-				alert(Id);
-			}
-		});
+			$.ajax({
+				url:"refreshServicioSelected.do?idServicio="+Id,
+				idServicio:Id,
+				type:"GET",
+				async:true,
+				cache:false,
+				success:function(data){
+					paintEstado_serv_unique('dataTable_id','dataTable_estado_serv',Id);
+				}
+			});
 	}
 	function limpiarForm(){
 		$("#cmbAmbiente").val("");

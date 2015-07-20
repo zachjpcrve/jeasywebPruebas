@@ -77,7 +77,6 @@ public class AccesoAction extends GenericAction{
 		MenuAction menuCll = null;
 		ParametroBO parametroBO = null;
 		List<Modulo> listaModulos =null;
-		
 		try {
 			try {
 				String desa = this.getRequest().getParameter("desa");
@@ -151,7 +150,6 @@ public class AccesoAction extends GenericAction{
 					this.getRequest().setAttribute("mensaje", "No se encontro del usuario en el LDAP");
 					forward = "error"; 
 				}
-	
 			} catch (IILDPeExcepcion e) {
 				logger.error(StringUtil.getStackTrace(e));
 				this.getRequest().setAttribute("mensaje", e.getMensaje());
@@ -187,7 +185,6 @@ public class AccesoAction extends GenericAction{
 	
 	@Action(value="home")
 	public String home(){
-		
 		return "panel";
 	}
 }

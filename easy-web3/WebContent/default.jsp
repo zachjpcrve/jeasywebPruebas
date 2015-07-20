@@ -154,18 +154,25 @@
     	});
     }
     
-    function paintEstado_serv_unique(gridColumn,index){
-    	$("td[aria-describedby='"+gridColumn+"']").eq(function(index){
-    		var _html_serv=$(this).html();
-    		if(_html_serv=='&nbsp;' || _html_serv=='1'){
-    			$(this).html('<img border="0" alt="OK" title="OK" src="images/icons/verde2.png">');
-    		}else{
-    			$(this).html('<img border="0" alt="ERROR" title="ERROR" src="images/icons/rojo2.png">');	
+    function paintEstado_serv_unique(gridColumn,gridColumn2,Id){
+    	var i=0;
+    	$("td[aria-describedby='"+gridColumn+"']").each(function(){
+    		var _html_=$(this).html();
+    		if(_html_==Id){
+				$("td[aria-describedby='"+gridColumn2+"']:eq("+i+")").each(function(){
+    				var _html_2=$(this).html();
+    	    		if(_html_2=='&nbsp;' || _html_2=='1'){
+    	    			$(this).html('<img border="0" alt="OK" title="OK" src="images/icons/verde2.png">');
+    	    		}else{
+    	    			$(this).html('<img border="0" alt="ERROR" title="ERROR" src="images/icons/rojo2.png">');	
+    	    		}
+				});
     		}
+    		i++;
     	});
     }
     //Usado en los cuadros de asignaciones
-    	function syncronizedValueNumeric(idText,idTextFixed){
+    function syncronizedValueNumeric(idText,idTextFixed){
 	
         var $objTextFixed=$("#"+idTextFixed);
         var $objText=$("#"+idText);
