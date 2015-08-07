@@ -61,6 +61,10 @@ private Logger logger = Logger.getLogger(this.getClass());
 		return estadotestByUrl;
 	}
 	
+	public String testByUrlAccount(Servicio servicio,String urlAntiguo,String user,String password)throws Exception{
+		String estadotestByUrlAccount=servicioDAO.testByUrlAccount(servicio, urlAntiguo, user, password);
+		return estadotestByUrlAccount;
+	}
 	public List<String> Listaids(List<String> listaIds){
 		return listaIds;
 	}

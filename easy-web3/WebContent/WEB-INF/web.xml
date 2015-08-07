@@ -47,6 +47,17 @@
 		</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
+  	<servlet>
+  		<display-name>Apache-Axis Servlet</display-name>
+  		<servlet-name>AxisServlet</servlet-name>
+  		<servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+  	</servlet>
+  	<servlet>
+  		<display-name>Apache-Axis Admin Servlet Web Admin</display-name>
+  		<servlet-name>AxisAdminServlet</servlet-name>
+  		<servlet-class>org.apache.axis2.transport.http.AxisAdminServlet</servlet-class>
+  		<load-on-startup>100</load-on-startup>
+  	</servlet>
 
   	<!-- Servlet Mapping, not called directly -->
   	
@@ -59,6 +70,22 @@
 		<servlet-name>ConnectorServlet</servlet-name>
 		<url-pattern>/fckeditor/editor/filemanager/connectors/*</url-pattern>
 	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>AxisServlet</servlet-name>
+  		<url-pattern>/servlet/AxisServlet</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>AxisServlet</servlet-name>
+  		<url-pattern>*.jws</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>AxisServlet</servlet-name>
+  		<url-pattern>/services/*</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+  		<servlet-name>AxisAdminServlet</servlet-name>
+  		<url-pattern>/axis2-admin/*</url-pattern>
+  	</servlet-mapping>
 	<session-config>
 		<session-timeout>-1</session-timeout>
 	</session-config>
@@ -66,5 +93,14 @@
 	<welcome-file-list>
 <!--		<welcome-file>/pages/login-ldap.jsp</welcome-file>-->
 		<welcome-file>login_ldap_pre.jsp</welcome-file>
+		<welcome-file>/axis2-web/index.jsp</welcome-file>
 	</welcome-file-list>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/axis2-web/Error/error404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/axis2-web/Error/error500.jsp</location>
+	</error-page>
 </web-app>

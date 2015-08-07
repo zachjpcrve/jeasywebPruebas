@@ -51,6 +51,8 @@ public class ServicioAction extends GenericAction{
 	private Long idServicio;
 	private String urlServicio;
 	private String urlAntiguo;
+	private String userUrl;
+	private String passUrl;
 	private Servicio servicio;
 	private Servicio servicioBuscar;
 	private List<Servicio> listaServicios;
@@ -116,7 +118,13 @@ public class ServicioAction extends GenericAction{
 					try {
 						servicio = servicioBO.findById(idServicio);
 						urlAntiguo = servicio.getUrl();
-						servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+						if(String.valueOf("0").equals(servicio.getReq_aut())){
+							servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+						}else if(String.valueOf("1").equals(servicio.getReq_aut())){
+							userUrl=servicio.getUsuario();
+							passUrl=servicio.getClave();
+							servicio.setEstado_serv(servicioBO.testByUrlAccount(servicio, urlAntiguo, userUrl, passUrl));
+						}
 						servicioBO.save(servicio, urlAntiguo);
 						Thread.sleep(0);
 					} catch (BOException e) {
@@ -133,7 +141,13 @@ public class ServicioAction extends GenericAction{
 		try {
 			servicio = servicioBO.findById(idServicio);
 			urlAntiguo = servicio.getUrl();
-			servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+			if(String.valueOf("0").equals(servicio.getReq_aut())){
+				servicio.setEstado_serv(servicioBO.testByUrl(servicio, urlAntiguo));
+			}else if(String.valueOf("1").equals(servicio.getReq_aut())){
+				userUrl=servicio.getUsuario();
+				passUrl=servicio.getClave();
+				servicio.setEstado_serv(servicioBO.testByUrlAccount(servicio, urlAntiguo, userUrl, passUrl));
+			}
 			servicioBO.save(servicio, urlAntiguo);
 			addActionMessage(mensaje);
 		} catch (BOException e) {
@@ -318,5 +332,21 @@ public class ServicioAction extends GenericAction{
 
 	public void setFinalizoproceso(boolean finalizoproceso) {
 		this.finalizoproceso = finalizoproceso;
+	}
+
+	public String getUserUrl() {
+		return userUrl;
+	}
+
+	public void setUserUrl(String userUrl) {
+		this.userUrl = userUrl;
+	}
+
+	public String getPassUrl() {
+		return passUrl;
+	}
+
+	public void setPassUrl(String passUrl) {
+		this.passUrl = passUrl;
 	}
 }

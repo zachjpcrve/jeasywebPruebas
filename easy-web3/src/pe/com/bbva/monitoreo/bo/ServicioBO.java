@@ -17,4 +17,5 @@ public interface ServicioBO {
 	public Grid<Servicio> findToGrid(Servicio servicio,String order, int page, int rows)throws Exception;
 	public String testByUrl(Servicio servicio, String urlServicio)throws BOException,DAOException;
 	public List<String> Listaids(List<String> listaIds);
+	public String testByUrlAccount(Servicio servicio,String urlAntiguo,String user,String password)throws Exception;
 }

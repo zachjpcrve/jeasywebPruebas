@@ -1,0 +1,13 @@
+El servicio Web esta soportado a axis2-1.6.3
+Instalacion y configuracion en Eclipse:
+-Primero, ir a la opcion Window>Preferences>WebServices>Axis2 Preferences>
+-Aparecera una pantalla Axis2Runtime, asignamos la ruta de la carpeta axis2-1.6.3
+-Click en "OK"
+-Seleccionamos Webservices>Server and Runtime, para dejar por defecto Axis2 y el server que usaremos.
+
+Para agregar el axis2 al proyecto Web:
+-Creado el Dynamic Project Web
+-click derecho al proyecto, seleccionamos Properties>Project Facets>Elegimos Axis2 > click en "OK"
+-Dejamos que se instale en nuestro proyecto 
+
+La carpeta "WebServicesTestURLAccount" es el proyecto donde se encuentra el servicio creado

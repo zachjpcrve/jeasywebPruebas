@@ -11,4 +11,5 @@ public interface ServicioDAO {
 	public List<Servicio> findServicios(Servicio servicio) throws Exception,DAOException;
 	public String testByUrl(Servicio servicio, String urlAntiguo);
 	public List<String> findIds(List<String> listaIds);
+	public String testByUrlAccount(Servicio servicio,String urlAntiguo, String user,String password)throws Exception;
 }

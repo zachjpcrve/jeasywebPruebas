@@ -1,4 +1,5 @@
 package pe.com.bbva.monitoreo.dao.impl;
+import pe.com.bbva.monitoreo.servicios.*;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -100,5 +101,24 @@ public class ServicioDAOImpl extends GenericDAOImpl<Servicio> implements Servici
 		}
 		servicio.setPat_Exito(stbResultadoRespuesta.toString());
 		return resultadoExito;
+	}
+
+	@Override
+	public String testByUrlAccount(Servicio servicio, String urlAntiguo,
+			String user, String password) throws Exception{
+		// Obteniendo Estado URL
+			ConsultarEstadoURLStub Estado_stub=new ConsultarEstadoURLStub("http://localhost:8585/WebServicesTestURLAccount/services/consultarEstadoURL");
+			ConsultarEstadoURLStub.ConsultandoEstadoURL Estado_req=new ConsultarEstadoURLStub.ConsultandoEstadoURL();
+			Estado_req.setUrl_servicio(urlAntiguo);
+			Estado_req.setUser(user);
+			Estado_req.setPassword(password);
+			ConsultarEstadoURLStub.ConsultandoEstadoURLResponse Estado_res=Estado_stub.consultandoEstadoURL(Estado_req);
+			
+		//Obteniendo Patron URL
+			String resultadoCompleto=Estado_res.get_return();
+			String estado=resultadoCompleto.substring(0,1);
+			String patron_exito=resultadoCompleto.substring(1, resultadoCompleto.length());
+			servicio.setPat_Exito(patron_exito);
+			return estado;
 	}
 }
