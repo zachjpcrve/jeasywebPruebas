@@ -20,8 +20,8 @@
 									<tr>
 										<td class="label">Direccion Url:</td>
 										<td><s:textfield theme="simple" name="servicio.url"
-											id="txtUrl" maxlength="60" size="100"
-											cssClass="validate[required,custom[url]]"
+											id="txtUrl" maxlength="100" size="100"
+											cssClass="validate[required,custom[webservice]]"
 											/>
 										</td>
 									</tr>
